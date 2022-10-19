@@ -5,17 +5,17 @@ const BASE_URL = "http://localhost:4000/"; //link da url
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
   const config = {
-    headers: { Authorization: `Bearer ${auth.token}` }
+    headers: { Authorization: `Bearer ${auth.token}` },
   };
   return config;
 }
 
-function singUp(body) {
+function signUp(body) {
   const promise = axios.post(BASE_URL + "sign-up", body);
   return promise;
 }
 
-function singIn(body) {
+function signIn(body) {
   const promise = axios.post(BASE_URL + "sign-in", body);
   return promise;
 }
@@ -26,4 +26,4 @@ function validToken() {
   return promise;
 }
 
-export { singUp, singIn, validToken };
+export { signUp, signIn, validToken };
