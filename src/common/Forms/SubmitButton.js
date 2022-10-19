@@ -37,6 +37,10 @@ const Wrapper = styled.button`
   line-height: 40px;
   color: #ffffff;
 
+  :hover {
+    filter: brightness(0.9);
+  }
+
   @media (max-width: 1000px) {
     height: 55px;
     font-size: 22px;

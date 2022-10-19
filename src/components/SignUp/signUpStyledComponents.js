@@ -119,7 +119,26 @@ const StyledLink = styled(Link)`
   @media (max-width: 1000px) {
     font-size: 17px;
     margin-bottom: 20px;
+    line-height: 30px;
   }
 `;
 
-export { Container, LeftWrapper, RightWrapper, StyledLink };
+const ValidatePasswordBox = styled.div`
+  height: ${(props) => (props.passwordLength !== 0 ? "180px" : "0px")};
+  transition: height 0.5s;
+  overflow-y: ${(props) => (props.passwordLength === 0 ? "hidden" : "initial")};
+
+  h1 {
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    line-height: 35px;
+  }
+`;
+
+export {
+  Container,
+  LeftWrapper,
+  RightWrapper,
+  StyledLink,
+  ValidatePasswordBox,
+};
