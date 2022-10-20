@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
@@ -8,9 +8,13 @@ import { Menu, Imagem, Wrapper, SearchBox } from "./HeaderStyledComponents";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const [userPicture, setUserPicture] = useState("");
   const navigate = useNavigate();
-  const userPicture =
-    "https://i0.wp.com/techwek.com/wp-content/uploads/2021/01/panda-fofo-kawaii.jpg?resize=474%2C841&ssl=1";
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("Linkr"));
+    setUserPicture(userData.picture);
+  }, []);
 
   return (
     <Wrapper>
@@ -41,7 +45,7 @@ export default function Header() {
       <Menu
         showMenu={showMenu}
         onClick={() => {
-          localStorage.removeItem("UserToken");
+          localStorage.removeItem("Linkr");
           navigate("/");
         }}
       >

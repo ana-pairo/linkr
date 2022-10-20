@@ -40,12 +40,26 @@ export default function SignIn() {
     }
 
     try {
-      // const response = await signIn(inputData);
-      const token = "ficticio";
-      localStorage.setItem("Linkr", JSON.stringify(token));
-      navigate("/teste");
+      const response = await signIn(inputData);
+
+      const userData = response.data;
+
+      localStorage.setItem("Linkr", JSON.stringify(userData));
+
+      navigate("/timeline");
     } catch (error) {
       setIsDisable(false);
+
+      if (error.message === "Network Error") {
+        swal("Oops", `${error.message}`, "error");
+        return;
+      }
+
+      if (error.response.status === 401) {
+        swal("Oops", "Invalid e-mail/password", "error");
+        return;
+      }
+
       swal("Oops", `${error.response.data}`, "error");
     }
   }

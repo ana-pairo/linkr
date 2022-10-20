@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import { validToken } from "../../services/axiosService";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+
+import { Container } from "../../common/Container/ContainerStyle";
+import Header from "../../common/Header/Header";
 
 function renderError() {
   localStorage.clear("Linkr"); //Nome lá no localStorage
@@ -7,31 +12,41 @@ function renderError() {
 }
 
 export default function PrivatePage({ children }) {
+  const navigate = useNavigate();
+  const [render, setRender] = useState(
+    <Container>
+      <Header />
+      {children}
+    </Container>
+  );
 
-  const [render, setRender] = useState(<>{children}</>);
-  
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("Linkr")); //Nome lá no localStorage (Aqui tbm)
     if (!auth) {
-      setRender(renderError());
-    } else { 
+      swal("Oops", `Loga de novo ai`, "error");
+      localStorage.clear("Linkr"); //Nome lá no localStorage
+      navigate("/");
+    } else {
       verification();
     } // eslint-disable-next-line
-  }, [render]); 
+  }, [render]);
 
   function verification() {
     const promise = validToken();
-      promise
-        .then((r) => {
-          setRender(
-            <>
-              {children}
-            </>
-          );
-        })
-        .catch(() => {
-          setRender(renderError());
-        }); 
+    promise
+      .then((r) => {
+        setRender(
+          <Container>
+            <Header />
+            {children}
+          </Container>
+        );
+      })
+      .catch(() => {
+        swal("Oops", `Loga de novo ai`, "error");
+        localStorage.clear("Linkr"); //Nome lá no localStorage
+        navigate("/");
+      });
   }
 
   return render;
