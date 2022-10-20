@@ -45,8 +45,7 @@ table {
  border-spacing: 0;
 }
 *{
-    box-sizing: border-box;
-    
+    box-sizing: border-box;   
 }
 
 .swal-overlay {

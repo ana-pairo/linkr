@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
+  width: 100vw;
   position: relative;
   background-color: #333333;
   color: #ffffff;
 
   @media (max-width: 1000px) {
-    position: initial;
     overflow-y: scroll;
   }
 `;
@@ -52,8 +52,8 @@ const LeftWrapper = styled.div`
     align-items: center;
     height: 30%;
     min-height: 180px;
-    width: 100%;
-    flex-wrap: nowrap;
+    width: 100vw;
+    min-width: 330px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     div {
@@ -97,6 +97,7 @@ const RightWrapper = styled.div`
     width: 100%;
     height: 70%;
     min-height: 450px;
+    min-width: 330px;
     padding-top: 40px;
     flex-wrap: nowrap;
     justify-content: initial;
@@ -124,6 +125,7 @@ const StyledLink = styled(Link)`
 `;
 
 const ValidatePasswordBox = styled.div`
+  min-width: 300px;
   height: ${(props) => (props.passwordLength !== 0 ? "180px" : "0px")};
   transition: height 0.5s;
   overflow-y: ${(props) => (props.passwordLength === 0 ? "hidden" : "initial")};
