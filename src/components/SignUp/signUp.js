@@ -55,7 +55,7 @@ export default function SignUp() {
       navigate("/");
     } catch (error) {
       setIsDisable(false);
-      swal("Oops", `${error.message}`, "error");
+      swal("Oops", `${error.response.data}`, "error");
     }
   }
 
