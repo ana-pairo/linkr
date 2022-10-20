@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
-import { validateForm, validatePassword } from "./validations";
+import { validateSignUpForm, validatePassword } from "./validations";
 import { signUp } from "../../services/axiosService";
 
 import {
@@ -11,7 +11,7 @@ import {
   RightWrapper,
   StyledLink,
   ValidatePasswordBox,
-} from "./signUpStyledComponents";
+} from "../../common/Auth/authScreensStyledComponents";
 import FormBox from "../../common/Forms/FormStyle";
 import EyeIconBox from "../../common/Forms/EyeIconBox";
 import SubmitButton from "../../common/Forms/SubmitButton";
@@ -43,7 +43,7 @@ export default function SignUp() {
 
     setIsDisable(true);
 
-    if (validateForm({ inputData, setIsDisable, isPasswordValid })) {
+    if (validateSignUpForm({ inputData, setIsDisable, isPasswordValid })) {
       return;
     }
 
@@ -72,7 +72,7 @@ export default function SignUp() {
           <input
             type="text"
             name="email"
-            placeholder="email"
+            placeholder="e-mail"
             onChange={handleForm}
             value={inputData.email}
           />

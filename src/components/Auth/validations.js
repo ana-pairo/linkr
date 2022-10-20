@@ -25,7 +25,7 @@ function validatePassword({
   }
 }
 
-function validateForm({ inputData, setIsDisable, isPasswordValid }) {
+function validateSignUpForm({ inputData, setIsDisable, isPasswordValid }) {
   const emailLength = inputData.email.length === 0;
   const passwordLength = inputData.password.length === 0;
   const usernameLength = inputData.username.length === 0;
@@ -70,4 +70,26 @@ function validateForm({ inputData, setIsDisable, isPasswordValid }) {
   }
 }
 
-export { validateForm, validatePassword };
+function validateSignInForm({ inputData, setIsDisable }) {
+  const emailLength = inputData.email.length === 0;
+  const passwordLength = inputData.password.length === 0;
+  const email = inputData.email;
+
+  if (emailLength || passwordLength) {
+    setIsDisable(false);
+    return swal("Oops", "All fields are mandatory.", "warning");
+  }
+
+  if (
+    !(
+      email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ) !== null
+    )
+  ) {
+    setIsDisable(false);
+    return swal("Oops", "Insert a valid email.", "warning");
+  }
+}
+
+export { validateSignUpForm, validateSignInForm, validatePassword };
