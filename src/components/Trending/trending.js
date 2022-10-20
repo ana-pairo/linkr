@@ -8,7 +8,7 @@ function PostsTrending(){
             <div className="posts">
                 <Posts/>
             </div>
-            <Trending/> 
+            <TrendingBox/> 
         </div>   
     )
 };
@@ -26,20 +26,20 @@ function Posts(){
     );
 };
 
-function Trending(){
+function TrendingBox(){
     return(
         <div className="trending">
             <div>
                 trending
             </div>
             <div>
-                
+
             </div>
         </div>
     )
 };
 
-export default function trending(){
+export default function Trending(){
     return(
         <>
         <Header>
