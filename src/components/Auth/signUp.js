@@ -55,7 +55,12 @@ export default function SignUp() {
       navigate("/");
     } catch (error) {
       setIsDisable(false);
-      swal("Oops", `${error.response.data}`, "error");
+      if (error.message === "Request failed with status code 409") {
+        swal("Oops", `${error.response.data}`, "error");
+        return;
+      }
+
+      swal("Oops", `${error.message}`, "error");
     }
   }
 
