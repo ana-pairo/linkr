@@ -55,11 +55,15 @@ export default function SignUp() {
       navigate("/");
     } catch (error) {
       setIsDisable(false);
-      if (error.message === "Request failed with status code 409") {
+      if (
+        error.message === "Request failed with status code 409" ||
+        error.message === "Request failed with status code 422"
+      ) {
         swal("Oops", `${error.response.data}`, "error");
         return;
       }
 
+      console.log(error);
       swal("Oops", `${error.message}`, "error");
     }
   }

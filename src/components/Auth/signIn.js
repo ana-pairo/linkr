@@ -46,7 +46,7 @@ export default function SignIn() {
 
       localStorage.setItem("Linkr", JSON.stringify(userData));
 
-      navigate("/teste");
+      navigate("/timeline");
     } catch (error) {
       setIsDisable(false);
 
