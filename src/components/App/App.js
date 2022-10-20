@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import GlobalStyles from "../../common/GlobalStyles";
 import SignUp from "../SignUp/signUp";
+import Trending from "../Trending/trending";
 import PrivatePage from "../PrivatePage/PrivatePage";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
           />
           <Route path="/" element={<> Hello Word </>} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/trending" element={<Trending />} />
         </Routes>
       </BrowserRouter>
     </>
