@@ -57,12 +57,16 @@ function validateForm({ inputData, setIsDisable, isPasswordValid }) {
   if (
     !(
       url.match(
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+        /^(?:(?<scheme>[^:\/?#]+):)?(?:\/\/(?<authority>[^\/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?$/
       ) !== null
     )
   ) {
     setIsDisable(false);
-    return swal("Oops", "Insert a valid URL.", "warning");
+    return swal(
+      "Oops",
+      "Insert a valid image URL (jpg/png/jpeg/jpg extensions).",
+      "warning"
+    );
   }
 }
 
