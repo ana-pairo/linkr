@@ -5,6 +5,7 @@ import SignUp from "../Auth/signUp";
 import SignIn from "../Auth/signIn";
 import PrivatePage from "../PrivatePage/PrivatePage";
 import Timeline from "../Timeline/TimelineContainer";
+import Tester from "../Teste";
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-
+          <Route path="/teste" element={<Tester />} />
           <Route
             path="/timeline"
             element={
