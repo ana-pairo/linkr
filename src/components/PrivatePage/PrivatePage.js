@@ -6,48 +6,36 @@ import swal from "sweetalert";
 import { Container } from "../../common/Container/ContainerStyle";
 import Header from "../../common/Header/Header";
 
-function renderError() {
-  localStorage.clear("Linkr"); //Nome lá no localStorage
-  return <h1>Faça o login antes!</h1>;
-}
-
 export default function PrivatePage({ children }) {
   const navigate = useNavigate();
-  const [render, setRender] = useState(
-    <Container>
-      <Header />
-      {children}
-    </Container>
-  );
+  const [render, setRender] = useState(<></>);
 
   useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem("Linkr")); //Nome lá no localStorage (Aqui tbm)
+    const auth = JSON.parse(localStorage.getItem("Linkr"));
     if (!auth) {
-      swal("Oops", `Loga de novo ai`, "error");
-      localStorage.clear("Linkr"); //Nome lá no localStorage
+      swal("Oops", "Please sign in again", "error");
+      localStorage.clear("Linkr");
       navigate("/");
     } else {
       verification();
-    } // eslint-disable-next-line
-  }, [render]);
+    }
+  }, []);
 
-  function verification() {
-    const promise = validToken();
-    promise
-      .then((r) => {
-        setRender(
-          <Container>
-            <Header />
-            {children}
-          </Container>
-        );
-      })
-      .catch(() => {
-        swal("Oops", `Loga de novo ai`, "error");
-        localStorage.clear("Linkr"); //Nome lá no localStorage
-        navigate("/");
-      });
+  async function verification() {
+    try {
+      await validToken();
+
+      setRender(
+        <Container>
+          <Header />
+          {children}
+        </Container>
+      );
+    } catch (error) {
+      swal("Oops", "Please sign in again", "error");
+      localStorage.clear("Linkr");
+      navigate("/");
+    }
   }
-
   return render;
 }
