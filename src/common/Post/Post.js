@@ -1,18 +1,52 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
-import { FaRegHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
 
 import PictureContext from "../../contexts/PictureContext";
+import { getPostLikes, likePost, unlikePost } from "../../services/axiosService";
 
-export default function Post() {
+export default function Post({ postObj }) {
   const { userPicture } = useContext(PictureContext);
-  const heartStyle = { color: "#FFFFFF", fontSize: "20px", cursor: "pointer" };
+  const [ isLiked, setIsLiked ] = useState(true);
+  const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
+
+  useEffect(() => {
+    let postLikes;
+    getPostLikes(postObj.postId)
+    .then(res => {
+      postLikes = res.data;
+      postLikes.forEach(like => {
+        if (like.userId === postObj.userId) {
+          setIsLiked(true);
+          like.username = "Você";
+        };
+      });
+      postLikes = postLikes.map(post => post.username);
+    })
+    .catch(error => console.log(error));
+  })
+
+  function like() {
+    likePost(postObj.postId)
+    .then(() => setIsLiked(true))
+    .catch(error => console.log(error));
+  }
+
+  function unlike() {
+    unlikePost(postObj.postId)
+    .then(() => setIsLiked(false))
+    .catch(error => console.log(error));
+  }
 
   return (
     <PostWrapper>
       <LeftHandleBar>
         <img src={userPicture} alt="Cutty panda" />
-        <FaRegHeart style={heartStyle}></FaRegHeart>
+        {
+          isLiked
+          ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
+          : <FaRegHeart style={heartStyle} onClick={like}></FaRegHeart>
+        }
         <p>13 likes</p>
       </LeftHandleBar>
       <RightHandleBar>

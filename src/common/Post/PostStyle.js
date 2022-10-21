@@ -36,6 +36,7 @@ const LeftHandleBar = styled.div`
     margin-top: 4px;
     font-size: 11px;
     color: #ffffff;
+    cursor: pointer;
   }
 
   @media (max-width: 524px) {
