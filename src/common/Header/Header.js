@@ -1,19 +1,22 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import ClickAwayListener from "react-click-away-listener";
 
 import { Menu, Imagem, Wrapper, SearchBox } from "./HeaderStyledComponents";
+import PictureContext from "../../contexts/PictureContext";
+import MenuContext from "../../contexts/MenuContext";
 
 export default function Header() {
-  const [showMenu, setShowMenu] = useState(false);
-  const [userPicture, setUserPicture] = useState("");
+  const { userPicture, setUserPicture } = useContext(PictureContext);
+  const { showMenu, setShowMenu } = useContext(MenuContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("Linkr"));
     setUserPicture(userData.picture);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -38,7 +41,7 @@ export default function Header() {
             <MdOutlineExpandMore color="white" size="40px" />
           </div>
 
-          <img src={userPicture} />
+          <img alt="User profile" src={userPicture} />
         </Imagem>
       </ClickAwayListener>
 

@@ -5,7 +5,9 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   position: relative;
+  justify-content: center;
   background-color: #333333;
+  overflow-y: hidden;
 `;
 
 export { Container };
