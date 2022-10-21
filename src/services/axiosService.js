@@ -26,4 +26,10 @@ function validToken() {
   return promise;
 }
 
-export { signUp, signIn, validToken };
+function listPosts() {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "timeline", header);
+  return promise;
+}
+
+export { signUp, signIn, validToken, listPosts };
