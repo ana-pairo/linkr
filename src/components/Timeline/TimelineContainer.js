@@ -37,6 +37,12 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media (max-width: 1000px) {
     width: 100%;
