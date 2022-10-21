@@ -3,7 +3,6 @@ import styled from "styled-components";
 const PostWrapper = styled.div`
   width: 100%;
   max-width: 611px;
-  min-height: 276px;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 16px;
@@ -13,6 +12,7 @@ const PostWrapper = styled.div`
   font-family: "Lato", sans-serif;
 
   @media (max-width: 612px) {
+    padding: 12px 16px;
     border-radius: 0;
   }
 `;
@@ -37,6 +37,21 @@ const LeftHandleBar = styled.div`
     font-size: 11px;
     color: #ffffff;
   }
+
+  @media (max-width: 524px) {
+    width: 40px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 17px;
+    }
+
+    p {
+      margin-top: 12px;
+      font-size: 9px;
+    }    
+  }  
 `;
 
 const RightHandleBar = styled.div`
@@ -66,7 +81,7 @@ const RightHandleBar = styled.div`
 
   .post {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin-top: 12px;
     border: 1px solid #4d4d4d;
     border-radius: 11px;
@@ -101,7 +116,7 @@ const RightHandleBar = styled.div`
 
   .post img {
     height: auto;
-    width: 154px;
+    max-width: 154px;
   }
 
   p {
@@ -112,6 +127,33 @@ const RightHandleBar = styled.div`
     font-weight: 700px;
     color: #ffffff;
     cursor: pointer;
+  }
+
+  @media (max-width: 524px) {
+    font-size: 15px;
+
+    .header {
+      margin-bottom: 7px;
+      font-size: 17px;
+    }
+
+    .post .text {
+      padding: 8px 9px;
+      font-size: 11px;
+    }
+
+    .post .text h3 {
+      font-size: 11px;
+    }
+
+    .post .text h4 {
+      margin-bottom: 9px;
+    }
+
+    .post img {
+      width: 100%;
+      height: auto;
+    }
   }
 `;
 
