@@ -186,6 +186,7 @@ const SearchOpen = styled.div`
       height: 40px;
       border-radius: 304px;
       margin-left: 10px;
+      cursor: pointer;
     }
 
     p {
@@ -196,6 +197,7 @@ const SearchOpen = styled.div`
       line-height: 23px;
       color: #515151;
       margin-left: 10px;
+      cursor: pointer;
     }
   }
 

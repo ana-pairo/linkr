@@ -21,8 +21,6 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(users);
-
   function listUsers(search){
     const promise = listUsersSearch(search);
       promise
@@ -45,11 +43,11 @@ export default function Header() {
           <BsSearch color={"#C6C6C6"} />
         </div>
         <SearchOpen>
-          {users.map((e) => {
+          {users.map((e,i) => {
             return (
-              <div>
-                <img alt={e.username} src={e.picture} />
-                <p>{e.username}</p>
+              <div key={i} >
+                <img alt={e.username} src={e.picture} onClick={() => navigate("/user/"+ e.id)} />
+                <p onClick={() => navigate("/user/"+ e.id)}>{e.username}</p>
               </div>
             );
           })}
