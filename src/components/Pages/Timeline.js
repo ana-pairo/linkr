@@ -13,11 +13,11 @@ export default function Timeline( { page } ) {
   const [noPosts, setNoPosts] = useState(false);
 
   useEffect(() => {
-    setNoPosts(false);
     listTimeLine();
   }, []);
 
   function listTimeLine(){
+    setNoPosts(false);
     const promise = listPosts();
       promise
           .then(r => {
@@ -35,7 +35,7 @@ export default function Timeline( { page } ) {
       <Title showMenu={showMenu}>timeline</Title>
       <Wrapper showMenu={showMenu}>
         <LeftWrapper>
-          <CreatePost />
+          <CreatePost listTimeLine={listTimeLine} />
           {noPosts? <h1>There are no posts yet</h1> : ""}
           {posts.length === 0 && !noPosts? <h1>Loading...</h1> : posts.map((e,i) => <Post key={i} obj={e} />)}
         </LeftWrapper>

@@ -3,8 +3,9 @@ import { CreatePostBox, RightHandleBar, LeftHandleBar } from "./CreatePostStyle"
 import PictureContext from "../../contexts/PictureContext";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { createPost } from "../../services/axiosService";
 
-export default function CreatePost() {
+export default function CreatePost( { listTimeLine } ) {
   const { userPicture } = useContext(PictureContext); 
   const { setUserInfo } = useContext(UserContext); 
   const navigate = useNavigate();
@@ -28,21 +29,23 @@ export default function CreatePost() {
  
   function handleForm(e){
     e.preventDefault();
-    console.log(formInf);
     setDisabled(true);
+    const split = formInf.description.split("#");
+    const trends = split.map(e => e.split(" ")[0]);
+    trends.shift();
+    const obj = {...formInf, trends}
 
-    /* 
-    const promise = login(formInf);
+    const promise = createPost(obj);
     promise
       .then((r) => {
-        const obj = {token: r.data.token, user: r.data.user};
-        localStorage.setItem("myWalletUser", JSON.stringify(obj));
-        navigate("/home");
+        setFormInf({link:"", description:""});
+        listTimeLine();
+        setDisabled(false);
       })
       .catch(() => {
-        alert("Erro ao logar!");
+        alert("Houve um erro ao publicar seu link");
         setDisabled(false);
-      });   */
+      });  
   } 
 
   return (
@@ -54,15 +57,15 @@ export default function CreatePost() {
         <div>What are you going to share today?</div>
         <form onSubmit={handleForm}>
             <input required type="url" name="link" value={formInf.email}
-              placeholder="http://..." 
+              placeholder="http://..." disabled={disabled}
               onChange={updateInfs}
             />
             <textarea type="text" name="description" value={formInf.password}
-              placeholder="Awesome article about #javascript" 
+              placeholder="Awesome article about #javascript" disabled={disabled}
               onChange={updateInfs}
             ></textarea>
-            <button type="submit" >
-              Publish
+            <button disabled={disabled} type="submit" >
+              {disabled? "Publishing..." : "Publish"}
             </button>
           </form>
       </RightHandleBar>
