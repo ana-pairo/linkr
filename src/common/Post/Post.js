@@ -1,21 +1,32 @@
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
 export default function Post( { obj } ) {
   const heartStyle = { color: "#FFFFFF", fontSize: "20px", cursor: "pointer" };
   const navigate = useNavigate(); 
+  const { setUserInfo } = useContext(UserContext); 
+
+  function redirect () {
+    setUserInfo({
+      username: obj.username,
+      picture: obj.userPhoto
+    }); 
+    navigate("/user/"+ obj.userId);
+  }
 
   return (
     <PostWrapper>
       <LeftHandleBar>
-        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.userId)} />
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={redirect} />
         <FaRegHeart style={heartStyle}></FaRegHeart>
         <p>{obj.likes} likes</p>
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p onClick={() => navigate("/user/"+ obj.userId)}>{obj.username}</p>
+          <p onClick={redirect}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>

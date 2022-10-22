@@ -6,12 +6,14 @@ import ClickAwayListener from "react-click-away-listener";
 import { Menu, Imagem, Wrapper, SearchBox, SearchOpen } from "./HeaderStyledComponents";
 import PictureContext from "../../contexts/PictureContext";
 import MenuContext from "../../contexts/MenuContext";
+import UserContext from "../../contexts/UserContext";
 import {DebounceInput} from 'react-debounce-input';
 import { listUsersSearch } from "../../services/axiosService";
 
 export default function Header() {
   const { userPicture, setUserPicture } = useContext(PictureContext);
   const { showMenu, setShowMenu } = useContext(MenuContext);
+  const { setUserInfo } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
@@ -26,6 +28,14 @@ export default function Header() {
       promise
           .then(r => setUsers(r.data))
           .catch(e => setUsers([]));
+  }
+
+  function redirect (e) {
+    setUserInfo({
+      username: e.username,
+      picture: e.picture
+    }); 
+    navigate("/user/"+ e.id);
   }
 
   return (
@@ -46,8 +56,8 @@ export default function Header() {
           {users.map((e,i) => {
             return (
               <div key={i} >
-                <img alt={e.username} src={e.picture} onClick={() => navigate("/user/"+ e.id)} />
-                <p onClick={() => navigate("/user/"+ e.id)}>{e.username}</p>
+                <img alt={e.username} src={e.picture} onClick={() => redirect(e)} />
+                <p onClick={() => redirect(e)}>{e.username}</p>
               </div>
             );
           })}
