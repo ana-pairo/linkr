@@ -1,19 +1,21 @@
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Post( { obj } ) {
   const heartStyle = { color: "#FFFFFF", fontSize: "20px", cursor: "pointer" };
+  const navigate = useNavigate(); 
 
   return (
     <PostWrapper>
       <LeftHandleBar>
-        <img src={obj.userPhoto} alt="Cutty panda" />
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.id)} />
         <FaRegHeart style={heartStyle}></FaRegHeart>
         <p>{obj.likes} likes</p>
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p>{obj.username}</p>
+          <p onClick={() => navigate("/user/"+ obj.id)}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>

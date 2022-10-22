@@ -26,8 +26,6 @@ export default function Timeline() {
           .catch(e => alert("An error occured while trying to fetch the posts, please refresh the page")); 
   }
 
-  console.log(posts);
-
   if(posts.length === 0){
     return (
       <>

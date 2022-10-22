@@ -1,16 +1,18 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import ClickAwayListener from "react-click-away-listener";
-
-import { Menu, Imagem, Wrapper, SearchBox } from "./HeaderStyledComponents";
+import { Menu, Imagem, Wrapper, SearchBox, SearchOpen } from "./HeaderStyledComponents";
 import PictureContext from "../../contexts/PictureContext";
 import MenuContext from "../../contexts/MenuContext";
+import {DebounceInput} from 'react-debounce-input';
+import { listUsersSearch } from "../../services/axiosService";
 
 export default function Header() {
   const { userPicture, setUserPicture } = useContext(PictureContext);
   const { showMenu, setShowMenu } = useContext(MenuContext);
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,16 +21,37 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function listUsers(search){
+    const promise = listUsersSearch(search);
+      promise
+          .then(r => setUsers(r.data))
+          .catch(e => setUsers([]));
+  }
+
   return (
     <Wrapper>
       <div>
         <h1>linkr</h1>
       </div>
       <SearchBox showMenu={showMenu}>
-        <input type="text" name="search" placeholder="Search for people" />
+        <DebounceInput
+          minLength={3}
+          placeholder="Search for people"
+          debounceTimeout={300}
+          onChange={e => listUsers(e.target.value)} />
         <div>
           <BsSearch color={"#C6C6C6"} />
         </div>
+        <SearchOpen>
+          {users.map((e,i) => {
+            return (
+              <div key={i} >
+                <img alt={e.username} src={e.picture} onClick={() => navigate("/user/"+ e.id)} />
+                <p onClick={() => navigate("/user/"+ e.id)}>{e.username}</p>
+              </div>
+            );
+          })}
+        </SearchOpen>
       </SearchBox>
       <ClickAwayListener onClickAway={() => setShowMenu(false)}>
         <Imagem
