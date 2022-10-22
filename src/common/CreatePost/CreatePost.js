@@ -23,7 +23,7 @@ export default function CreatePost() {
         <img onClick={redirect} src={userPicture} />
       </LeftHandleBar>
       <RightHandleBar>
-        Var dar bom... Confia!
+        Var dar bom... Confia! - AiAi
       </RightHandleBar>
     </CreatePostBox>
   );
