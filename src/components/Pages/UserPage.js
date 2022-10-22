@@ -5,17 +5,16 @@ import Title from "../../common/PagesTitle.js/PageTitle";
 import MenuContext from "../../contexts/MenuContext";
 import UserContext from "../../contexts/UserContext";
 import { listPostsByUser } from "../../services/axiosService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RightWrapper, LeftWrapper, Wrapper } from "./PagesStyle";
 
 export default function UserPage( { page } ) {
   const { showMenu } = useContext(MenuContext);
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
   const [noPosts, setNoPosts] = useState(false);
   const [aux, setAux] = useState("");
   const { id } = useParams();
-  const navigate = useNavigate();
 
   if(id !== aux){
     setAux(id);
@@ -32,7 +31,11 @@ export default function UserPage( { page } ) {
     const promise = listPostsByUser(id); 
       promise
           .then(r => {
-            setPosts(r.data)
+            setUserInfo({
+              username: r.data.user.username,
+              picture: r.data.user.picture
+            }); 
+            setPosts(r.data.posts)
             if(r.data.length === 0){
               setNoPosts(true);
             }
