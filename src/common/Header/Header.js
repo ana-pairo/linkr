@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <Wrapper>
       <div>
-        <h1>linkr</h1>
+        <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
       <SearchBox showMenu={showMenu}>
         <DebounceInput

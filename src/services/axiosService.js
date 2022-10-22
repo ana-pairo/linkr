@@ -38,4 +38,16 @@ function listUsersSearch(search) {
   return promise;
 }
 
-export { signUp, signIn, validToken, listPosts, listUsersSearch };
+function listPostsByUser(id) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "user/" + id, header);
+  return promise;
+}
+
+function listPostsByHashtag(hashtag) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "hashtag/" + hashtag, header);
+  return promise;
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag };
