@@ -41,77 +41,48 @@ const RightHandleBar = styled.div`
   flex-direction: column;
   font-size: 17px;
 
-  div {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .header {
-    margin-bottom: 10px;
-    font-size: 19px;
-    color: #ffffff;
-  }
-
-  .header p {
-    margin-right: auto;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  a {
-    text-decoration: none;
-    margin-top: 12px;
-  }
-
-  .post {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #4d4d4d;
-    border-radius: 11px;
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  .post .text {
-    width: 100%;
-    height: 100%;
-    padding: 24px 20px;
+  form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    font-size: 11px;
+    align-items: flex-end;
   }
 
-  .post .text h3 {
-    margin-bottom: 5px;
-    font-size: 16px;
-    color: #cecece;
+  & > div {
+    margin: 5px 0;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #707070;
   }
 
-  .post .text h4 {
-    margin-bottom: 13px;
-    color: #9b9595;
+  input, textarea {
+    width: 100%;
+    height: 30px;
+    background: #EFEFEF;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 0;
+    padding: 10px;
   }
 
-  .post .text p {
-    color: #cecece;
+  textarea {
+    min-height: 66px;
+    resize: none;
   }
 
-  .post img {
-    height: auto;
-    width: 154px;
-  }
-
-  p {
-    color: #b7b7b7;
-  }
-
-  strong {
-    font-weight: 700px;
-    color: #ffffff;
+  button {
+    width: 112px;
+    height: 31px;
+    background: #1877F2;
+    border-radius: 5px;
+    border: 0;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
   }
+
 `;
 
 export { CreatePostBox, RightHandleBar, LeftHandleBar };
