@@ -1,18 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
+import ReactTooltip from 'react-tooltip';
 
 import PictureContext from "../../contexts/PictureContext";
 import { getPostLikes, likePost, unlikePost } from "../../services/axiosService";
 
 export default function Post({ postObj }) {
   const { userPicture } = useContext(PictureContext);
-  const [ isLiked, setIsLiked ] = useState(true);
+  const [ isLiked, setIsLiked ] = useState(false);
   const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
+  const [totalLikes, setTotalLikes] = useState(postObj.likes);
+  const totalLikesRef = useRef();
 
+  let postLikes = [];
   useEffect(() => {
-    let postLikes;
-    getPostLikes(postObj.postId)
+    getPostLikes(postObj.id)
     .then(res => {
       postLikes = res.data;
       postLikes.forEach(like => {
@@ -22,21 +25,29 @@ export default function Post({ postObj }) {
         };
       });
       postLikes = postLikes.map(post => post.username);
+      totalLikesRef.current = postLikes.length;
     })
     .catch(error => console.log(error));
-  })
+  }, [isLiked, postObj.id, postObj.userId])
 
   function like() {
-    likePost(postObj.postId)
-    .then(() => setIsLiked(true))
+    likePost(postObj.id)
+    .then(() => {
+      setIsLiked(true);
+      setTotalLikes(totalLikesRef.current + 1);
+    })
     .catch(error => console.log(error));
   }
 
   function unlike() {
-    unlikePost(postObj.postId)
-    .then(() => setIsLiked(false))
+    unlikePost(postObj.id)
+    .then(() => {
+      setIsLiked(false);
+      setTotalLikes(totalLikesRef.current - 1);
+    })
     .catch(error => console.log(error));
   }
+  console.log(postLikes);
 
   return (
     <PostWrapper>
@@ -47,7 +58,7 @@ export default function Post({ postObj }) {
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
           : <FaRegHeart style={heartStyle} onClick={like}></FaRegHeart>
         }
-        <p>13 likes</p>
+        <p>{totalLikes} likes</p>
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
@@ -77,4 +88,8 @@ export default function Post({ postObj }) {
       </RightHandleBar>
     </PostWrapper>
   );
+}
+
+function UsersLikes ({ likesArray }) {
+  
 }
