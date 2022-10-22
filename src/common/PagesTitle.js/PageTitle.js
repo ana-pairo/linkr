@@ -14,6 +14,16 @@ const Wrapper = styled.div`
   height: 65px;
   position: absolute;
   top: 110px;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
 
   @media (max-width: 1000px) {
     position: fixed;

@@ -186,9 +186,10 @@ const SearchOpen = styled.div`
     img {
       width: 40px;
       height: 40px;
-      border-radius: 304px;
       margin-left: 10px;
       cursor: pointer;
+      border-radius: 100%;
+      object-fit: cover;
     }
 
     p {
