@@ -69,7 +69,7 @@ const modalStyles = {
   }
 };
 
-export default function Post({ obj }) {
+export default function Post({ obj, isDisable, setIsDisable }) {
   const [ isLiked, setIsLiked ] = useState(false);
   const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
   const [postLikes, setPostLikes] = useState([]);
@@ -79,8 +79,6 @@ export default function Post({ obj }) {
   const navigate = useNavigate(); 
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isDisable, setIsDisable] = useState(false);
-  const [postsDeleted, setPostsDeleted] = useState(0);
 
   function redirect () {
     setUserInfo({
@@ -107,7 +105,7 @@ export default function Post({ obj }) {
       postLikesRef.current = likes;
     })
     .catch(error => console.log(error));
-  }, [isLiked, postsDeleted, obj.id, obj.userId]);
+  }, [isLiked, isDisable, obj.id, obj.userId]);
 
   function like() {
     likePost(obj.id)
@@ -185,7 +183,6 @@ export default function Post({ obj }) {
     .then(() => {
       closeModal();
       setIsDisable(false);
-      setPostsDeleted(postsDeleted + 1)
     })
     .catch((error) => {
       alert('Could not delete the post');
