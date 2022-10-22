@@ -11,10 +11,13 @@ export default function Timeline( { page } ) {
   const { showMenu } = useContext(MenuContext);
   const [posts, setPosts] = useState([]);
   const [noPosts, setNoPosts] = useState(false);
+  const [isDisable, setIsDisable] = useState(false);
+
+  console.log("renderizou timeline")
 
   useEffect(() => {
     listTimeLine();
-  }, []);
+  }, [isDisable]);
 
   function listTimeLine(){
     setNoPosts(false);
@@ -36,7 +39,7 @@ export default function Timeline( { page } ) {
         <LeftWrapper>
           <CreatePost listTimeLine={listTimeLine} />
           {noPosts? <h1>There are no posts yet</h1> : ""}
-          {posts.length === 0 && !noPosts? <h1>Loading...</h1> : posts.map((e,i) => <Post key={i} obj={e} />)}
+          {posts.length === 0 && !noPosts? <h1>Loading...</h1> : posts.map((e,i) => <Post key={i} obj={e} isDisable={isDisable} setIsDisable={setIsDisable} />)}
         </LeftWrapper>
         <RightWrapper>
           <SideBar />

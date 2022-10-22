@@ -69,7 +69,7 @@ const modalStyles = {
   }
 };
 
-export default function Post({ obj }) {
+export default function Post({ obj, isDisable, setIsDisable }) {
   const [ isLiked, setIsLiked ] = useState(false);
   const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
   const [postLikes, setPostLikes] = useState([]);
@@ -79,7 +79,6 @@ export default function Post({ obj }) {
   const navigate = useNavigate(); 
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isDisable, setIsDisable] = useState(false);
 
   function redirect () {
     setUserInfo({
@@ -158,7 +157,7 @@ export default function Post({ obj }) {
   function renderToolTip () {
     return (
       (totalLikes) ?
-        <ReactTooltip id="likesTip" place="bottom" effect="solid" type="light">
+        <ReactTooltip id={`likesTip${obj.id}`} place="bottom" effect="solid" type="light">
           {renderLikes()}
         </ReactTooltip> :
         ""
@@ -226,7 +225,7 @@ export default function Post({ obj }) {
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
           : <FaRegHeart style={heartStyle} onClick={like}></FaRegHeart>
         }
-        <p data-tip data-for="likesTip">{totalLikes} likes</p>
+        <p data-tip data-for={`likesTip${obj.id}`}>{totalLikes} likes</p>
         {renderToolTip()}
       </LeftHandleBar>
       <RightHandleBar>
