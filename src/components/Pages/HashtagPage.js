@@ -37,13 +37,9 @@ export default function HashtagPage( { page } ) {
           .catch(e => console.log("An error occured while trying to fetch the posts, please refresh the page"));
   }
 
-  function hashtagName(){
-    return "Hash";
-  }
-
   return (
     <>
-      <Title showMenu={showMenu}>{hashtagName()}</Title>
+      <Title showMenu={showMenu}>#{hashtag}</Title>
       <Wrapper showMenu={showMenu}>
         <LeftWrapper>
           {noPosts? <h1>There are no posts yet</h1> : ""}

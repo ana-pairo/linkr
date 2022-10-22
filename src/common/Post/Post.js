@@ -2,8 +2,9 @@ import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { getPostLikes, likePost, unlikePost } from "../../services/axiosService";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import ReactTooltip from 'react-tooltip';
+import UserContext from "../../contexts/UserContext";
 
 export default function Post({ obj }) {
   const [ isLiked, setIsLiked ] = useState(false);
@@ -12,7 +13,16 @@ export default function Post({ obj }) {
   const postLikesRef = useRef();
   const [totalLikes, setTotalLikes] = useState(obj.likes);
   const totalLikesRef = useRef();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const { setUserInfo } = useContext(UserContext); 
+
+  function redirect () {
+    setUserInfo({
+      username: obj.username,
+      picture: obj.userPhoto
+    }); 
+    navigate("/user/"+ obj.userId);
+  }
 
   useEffect(() => {
     let likes;
@@ -90,10 +100,18 @@ export default function Post({ obj }) {
     )
   }
 
+  function redirect () {
+    setUserInfo({
+      username: obj.username,
+      picture: obj.userPhoto
+    }); 
+    navigate("/user/"+ obj.userId);
+  }
+
   return (
     <PostWrapper>
       <LeftHandleBar>        
-        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.userId)} />
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => redirect()} />
         {
           isLiked
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
@@ -104,7 +122,7 @@ export default function Post({ obj }) {
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p onClick={() => navigate("/user/"+ obj.userId)}>{obj.username}</p>
+          <p onClick={redirect}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>

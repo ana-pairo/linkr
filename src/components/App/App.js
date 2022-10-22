@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import PictureContext from "../../contexts/PictureContext";
 import MenuContext from "../../contexts/MenuContext";
+import UserContext from "../../contexts/UserContext";
 import GlobalStyles from "../../common/GlobalStyles";
 import SignUp from "../Auth/signUp";
 import SignIn from "../Auth/signIn";
@@ -14,10 +15,13 @@ import HashtagPage from "../Pages/HashtagPage";
 export default function App() {
   const [userPicture, setUserPicture] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   return (
     <>
       <GlobalStyles />
-
+      <PictureContext.Provider value={{ userPicture, setUserPicture }}>
+      <MenuContext.Provider value={{ showMenu, setShowMenu }}>
+      <UserContext.Provider value={{ userInfo, setUserInfo }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignIn />} />
@@ -27,41 +31,32 @@ export default function App() {
           <Route
             path="/timeline"
             element={
-              <PictureContext.Provider value={{ userPicture, setUserPicture }}>
-                <MenuContext.Provider value={{ showMenu, setShowMenu }}>
                   <PrivatePage>
                     <Timeline page={"timeline"} />
-                  </PrivatePage>
-                </MenuContext.Provider>
-              </PictureContext.Provider>
+                  </PrivatePage> 
             }
           />
           <Route
             path="/user/:id"
             element={
-              <PictureContext.Provider value={{ userPicture, setUserPicture }}>
-                <MenuContext.Provider value={{ showMenu, setShowMenu }}>
                   <PrivatePage>
                     <UserPage page={"user"} />
                   </PrivatePage>
-                </MenuContext.Provider>
-              </PictureContext.Provider>
             }
           />
           <Route
             path="/hashtag/:hashtag"
             element={
-              <PictureContext.Provider value={{ userPicture, setUserPicture }}>
-                <MenuContext.Provider value={{ showMenu, setShowMenu }}>
                   <PrivatePage>
                     <HashtagPage page={"hashtag"} />
                   </PrivatePage>
-                </MenuContext.Provider>
-              </PictureContext.Provider>
             }
           />
         </Routes>
       </BrowserRouter>
+      </UserContext.Provider>
+      </MenuContext.Provider>
+      </PictureContext.Provider>
     </>
   );
 }
