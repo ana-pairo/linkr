@@ -32,4 +32,10 @@ function listPosts() {
   return promise;
 }
 
-export { signUp, signIn, validToken, listPosts };
+function listUsersSearch(search) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "user/search/" + search, header);
+  return promise;
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch };
