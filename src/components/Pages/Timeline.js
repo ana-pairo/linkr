@@ -21,7 +21,6 @@ export default function Timeline( { page } ) {
     const promise = listPosts();
       promise
           .then(r => {
-            console.log(r.data);
             setPosts(r.data);
             if(r.data.length === 0){
               setNoPosts(true);
