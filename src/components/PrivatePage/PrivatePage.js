@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { validToken } from "../../services/axiosService";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
 import { Container } from "../../common/Container/ContainerStyle";
 import Header from "../../common/Header/Header";
+import UserContext from "../../contexts/UserContext";
 
 export default function PrivatePage({ children }) {
   const navigate = useNavigate();
   const [render, setRender] = useState(<></>);
   const [aux, setAux] = useState("");
+  const { setUserInfo } = useContext(UserContext);
 
   if(aux !== children.props.page){
     setAux(children.props.page);
@@ -22,13 +24,16 @@ export default function PrivatePage({ children }) {
       localStorage.clear("Linkr");
       navigate("/");
     } else {
-      verification();
+      verification(auth);
     }
   }, [aux]);
 
-  async function verification() {
+  async function verification(auth) {
     try {
       await validToken();
+      setUserInfo({
+        userId: auth.userId,
+      })
 
       setRender(
         <Container>

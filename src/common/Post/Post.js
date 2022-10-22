@@ -14,7 +14,7 @@ export default function Post({ obj }) {
   const [totalLikes, setTotalLikes] = useState(obj.likes);
   const totalLikesRef = useRef();
   const navigate = useNavigate(); 
-  const { setUserInfo } = useContext(UserContext); 
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   function redirect () {
     setUserInfo({
@@ -123,8 +123,14 @@ export default function Post({ obj }) {
       <RightHandleBar>
         <div className="header">
           <p onClick={redirect}>{obj.username}</p>
-          <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
-          <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
+          {
+            (userInfo.userId === obj.userId) ?
+            <>
+              <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
+              <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
+            </> :
+            ""
+          }
         </div>
         <p>
         {obj.description}
