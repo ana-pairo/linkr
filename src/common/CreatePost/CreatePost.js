@@ -56,11 +56,11 @@ export default function CreatePost( { listTimeLine } ) {
       <RightHandleBar disabled={disabled} >
         <div>What are you going to share today?</div>
         <form onSubmit={handleForm}>
-            <input required type="url" name="link" value={formInf.email}
+            <input required type="url" name="link" value={formInf.link}
               placeholder="http://..." disabled={disabled}
               onChange={updateInfs}
             />
-            <textarea type="text" name="description" value={formInf.password}
+            <textarea type="text" name="description" value={formInf.description}
               placeholder="Awesome article about #javascript" disabled={disabled}
               onChange={updateInfs}
             ></textarea>
