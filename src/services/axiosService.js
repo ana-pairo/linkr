@@ -68,4 +68,10 @@ function unlikePost(postId) {
   return promise;
 }
 
-export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost };
+function deletePostById(postId) {
+  const header = createHeader();
+  const promise = axios.delete(BASE_URL + `post/${postId}`, header);
+  return promise;  
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost, deletePostById };
