@@ -21,15 +21,14 @@ export default function Timeline( { page } ) {
     const promise = listPosts();
       promise
           .then(r => {
-            setPosts(r.data)
+            console.log(r.data);
+            setPosts(r.data);
             if(r.data.length === 0){
               setNoPosts(true);
             }
           })
           .catch(e => alert("An error occured while trying to fetch the posts, please refresh the page")); 
   }
-
-  console.log(posts)
 
   return (
     <>
