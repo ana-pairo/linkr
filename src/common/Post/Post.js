@@ -80,6 +80,7 @@ export default function Post({ obj }) {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
+  const [postsDeleted, setPostsDeleted] = useState(0);
 
   function redirect () {
     setUserInfo({
@@ -106,7 +107,7 @@ export default function Post({ obj }) {
       postLikesRef.current = likes;
     })
     .catch(error => console.log(error));
-  }, [isLiked, isDisable, obj.id, obj.userId]);
+  }, [isLiked, postsDeleted, obj.id, obj.userId]);
 
   function like() {
     likePost(obj.id)
@@ -158,7 +159,7 @@ export default function Post({ obj }) {
   function renderToolTip () {
     return (
       (totalLikes) ?
-        <ReactTooltip id="likesTip" place="bottom" effect="solid" type="light">
+        <ReactTooltip id={`likesTip${obj.id}`} place="bottom" effect="solid" type="light">
           {renderLikes()}
         </ReactTooltip> :
         ""
@@ -184,6 +185,7 @@ export default function Post({ obj }) {
     .then(() => {
       closeModal();
       setIsDisable(false);
+      setPostsDeleted(postsDeleted + 1)
     })
     .catch((error) => {
       alert('Could not delete the post');
@@ -206,7 +208,7 @@ export default function Post({ obj }) {
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
           : <FaRegHeart style={heartStyle} onClick={like}></FaRegHeart>
         }
-        <p data-tip data-for="likesTip">{totalLikes} likes</p>
+        <p data-tip data-for={`likesTip${obj.id}`}>{totalLikes} likes</p>
         {renderToolTip()}
       </LeftHandleBar>
       <RightHandleBar>
