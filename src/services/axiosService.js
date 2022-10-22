@@ -32,4 +32,22 @@ function listPosts() {
   return promise;
 }
 
-export { signUp, signIn, validToken, listPosts };
+function listUsersSearch(search) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "user/search/" + search, header);
+  return promise;
+}
+
+function listPostsByUser(id) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "user/" + id, header);
+  return promise;
+}
+
+function listPostsByHashtag(hashtag) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "hashtag/" + hashtag, header);
+  return promise;
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag };

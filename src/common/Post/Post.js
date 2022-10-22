@@ -1,45 +1,42 @@
-import { useContext } from "react";
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-import PictureContext from "../../contexts/PictureContext";
-
-export default function Post() {
-  const { userPicture } = useContext(PictureContext);
+export default function Post( { obj } ) {
   const heartStyle = { color: "#FFFFFF", fontSize: "20px", cursor: "pointer" };
+  const navigate = useNavigate(); 
 
   return (
     <PostWrapper>
       <LeftHandleBar>
-        <img src={userPicture} alt="Cutty panda" />
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.userId)} />
         <FaRegHeart style={heartStyle}></FaRegHeart>
-        <p>13 likes</p>
+        <p>{obj.likes} likes</p>
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p>Juvenal Juvêncio</p>
+          <p onClick={() => navigate("/user/"+ obj.userId)}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>
         <p>
-          Muito maneiro esse tutorial de Material UI com React, deem uma olhada!{" "}
-          <strong>#react</strong> <strong>#material</strong>
+        {obj.description}
         </p>
+        <a href={obj.link} target="_blank">
         <div className="post">
           <div className="text">
-            <h3>Como aplicar o Material UI em um projeto React</h3>
+            <h3>{obj.linkTitle}</h3>
             <h4>
-              Hey! I have moved this tutorial to my personal blog. Same content,
-              new location. Sorry about making you click through to another
-              page.
+            {obj.linkDescription}
             </h4>
-            <p>https://medium.com/@pshrmn/a-simple-react-router</p>
+            <p>{obj.link}</p>
           </div>
           <img
-            src="https://w7.pngwing.com/pngs/79/518/png-transparent-js-react-js-logo-react-react-native-logos-icon-thumbnail.png"
-            alt="React logo"
+            src={obj.linkImage}
+            alt="Link"
           />
         </div>
+        </a>
       </RightHandleBar>
     </PostWrapper>
   );
