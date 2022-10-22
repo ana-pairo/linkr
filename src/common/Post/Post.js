@@ -9,13 +9,13 @@ export default function Post( { obj } ) {
   return (
     <PostWrapper>
       <LeftHandleBar>
-        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.id)} />
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.userId)} />
         <FaRegHeart style={heartStyle}></FaRegHeart>
         <p>{obj.likes} likes</p>
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p onClick={() => navigate("/user/"+ obj.id)}>{obj.username}</p>
+          <p onClick={() => navigate("/user/"+ obj.userId)}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>

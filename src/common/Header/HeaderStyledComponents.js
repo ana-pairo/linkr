@@ -19,6 +19,7 @@ const Wrapper = styled.div`
     line-height: 54px;
     letter-spacing: 0.05em;
     color: #ffffff;
+    cursor: pointer;
   }
 
   @media (max-width: 1000px) {
@@ -37,6 +38,7 @@ const Imagem = styled.div`
   justify-content: center;
   align-items: center;
   width: 100px;
+  cursor: pointer;
 
   img {
     width: 53px;
