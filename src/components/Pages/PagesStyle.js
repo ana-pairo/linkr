@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Post from "../../common/Post/Post";
 import SideBar from "../SideBar/SideBar";
 import Title from "../../common/PagesTitle.js/PageTitle";
 import MenuContext from "../../contexts/MenuContext";
 import { listPosts } from "../../services/axiosService";
+import { useContext, useEffect, useState } from "react";
 
 export default function Timeline() {
   const { showMenu } = useContext(MenuContext);
@@ -66,6 +66,12 @@ const Wrapper = styled.div`
 const LeftWrapper = styled.div`
   width: 611px;
   height: 90%;
+
+  h1 {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+  }
 `;
 
 const RightWrapper = styled.div`
@@ -88,3 +94,5 @@ const CreatePostBox = styled.div`
     border-radius: 0;
   }
 `;
+
+export { CreatePostBox, RightWrapper, LeftWrapper, Wrapper };

@@ -1,25 +1,24 @@
-import { useContext, useEffect, useRef, useState } from "react";
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
-import ReactTooltip from 'react-tooltip';
-
-import PictureContext from "../../contexts/PictureContext";
 import { getPostLikes, likePost, unlikePost } from "../../services/axiosService";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
-export default function Post({ postObj }) {
-  const { userPicture } = useContext(PictureContext);
+export default function Post({ obj }) {
   const [ isLiked, setIsLiked ] = useState(false);
   const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
-  const [totalLikes, setTotalLikes] = useState(postObj.likes);
+  const [totalLikes, setTotalLikes] = useState(obj.likes);
   const totalLikesRef = useRef();
+  const navigate = useNavigate();
+  console.log(obj)
 
-  let postLikes = [];
   useEffect(() => {
-    getPostLikes(postObj.id)
+    let postLikes;
+    getPostLikes(obj.id)
     .then(res => {
       postLikes = res.data;
       postLikes.forEach(like => {
-        if (like.userId === postObj.userId) {
+        if (like.userId === obj.userId) {
           setIsLiked(true);
           like.username = "Você";
         };
@@ -28,10 +27,10 @@ export default function Post({ postObj }) {
       totalLikesRef.current = postLikes.length;
     })
     .catch(error => console.log(error));
-  }, [isLiked, postObj.id, postObj.userId])
+  }, [isLiked, obj.id, obj.userId])
 
   function like() {
-    likePost(postObj.id)
+    likePost(obj.id)
     .then(() => {
       setIsLiked(true);
       setTotalLikes(totalLikesRef.current + 1);
@@ -40,19 +39,18 @@ export default function Post({ postObj }) {
   }
 
   function unlike() {
-    unlikePost(postObj.id)
+    unlikePost(obj.id)
     .then(() => {
       setIsLiked(false);
       setTotalLikes(totalLikesRef.current - 1);
     })
     .catch(error => console.log(error));
   }
-  console.log(postLikes);
 
   return (
     <PostWrapper>
-      <LeftHandleBar>
-        <img src={userPicture} alt="Cutty panda" />
+      <LeftHandleBar>        
+        <img src={obj.userPhoto} alt="Cutty panda" onClick={() => navigate("/user/"+ obj.userId)} />
         {
           isLiked
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
@@ -62,29 +60,28 @@ export default function Post({ postObj }) {
       </LeftHandleBar>
       <RightHandleBar>
         <div className="header">
-          <p>Juvenal Juvêncio</p>
+          <p onClick={() => navigate("/user/"+ obj.userId)}>{obj.username}</p>
           <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
           <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }}></FaTrash>
         </div>
         <p>
-          Muito maneiro esse tutorial de Material UI com React, deem uma olhada!{" "}
-          <strong>#react</strong> <strong>#material</strong>
+        {obj.description}
         </p>
+        <a href={obj.link} target="_blank" rel="noopener noreferrer">
         <div className="post">
           <div className="text">
-            <h3>Como aplicar o Material UI em um projeto React</h3>
+            <h3>{obj.linkTitle}</h3>
             <h4>
-              Hey! I have moved this tutorial to my personal blog. Same content,
-              new location. Sorry about making you click through to another
-              page.
+            {obj.linkDescription}
             </h4>
-            <p>https://medium.com/@pshrmn/a-simple-react-router</p>
+            <p>{obj.link}</p>
           </div>
           <img
-            src="https://w7.pngwing.com/pngs/79/518/png-transparent-js-react-js-logo-react-react-native-logos-icon-thumbnail.png"
-            alt="React logo"
+            src={obj.linkImage}
+            alt="Link"
           />
         </div>
+        </a>
       </RightHandleBar>
     </PostWrapper>
   );

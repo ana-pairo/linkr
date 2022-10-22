@@ -80,6 +80,11 @@ const RightHandleBar = styled.div`
     cursor: pointer;
   }
 
+  a {
+    text-decoration: none;
+    margin-top: 12px;
+  }
+
   .post {
     width: 100%;
     height: auto;

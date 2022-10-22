@@ -9,6 +9,11 @@ import Header from "../../common/Header/Header";
 export default function PrivatePage({ children }) {
   const navigate = useNavigate();
   const [render, setRender] = useState(<></>);
+  const [aux, setAux] = useState("");
+
+  if(aux !== children.props.page){
+    setAux(children.props.page);
+  } 
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -19,8 +24,7 @@ export default function PrivatePage({ children }) {
     } else {
       verification();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [aux]);
 
   async function verification() {
     try {
