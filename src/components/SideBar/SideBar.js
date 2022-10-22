@@ -1,25 +1,32 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getHashtags } from "../../services/axiosService";
 
 export default function SideBar() {
-  const exemplo = [
-    "javascript",
-    "react",
-    "react-native",
-    "material",
-    "web-dev",
-    "mobile",
-    "css",
-    "8",
-    "9",
-    "10",
-  ];
+  const [hashtags, setHashtags] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => { 
+    list();
+  }, []);
+
+  function list(){
+    const promise = getHashtags();
+      promise
+          .then(r => {
+            setHashtags(r.data);
+          })
+          .catch(e => console.log(e.message)); 
+  }
+
   return (
     <Wrapper>
       <h1>trending</h1>
       <hr />
       <div>
-        {exemplo.map((trend, index) => (
-          <h2 key={index}> # {trend} </h2>
+        {hashtags.length === 0? <h2>Loading...</h2> : hashtags.map((trend, index) => (
+          <h2 key={index} onClick={() => navigate("/hashtag/" + trend.name )} > # {trend.name} </h2>
         ))}
       </div>
     </Wrapper>
@@ -61,5 +68,6 @@ const Wrapper = styled.div`
     font-family: "Lato", sans-serif;
     color: #ffffff;
     margin-bottom: 4px;
+    cursor: pointer;
   }
 `;

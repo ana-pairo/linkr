@@ -80,4 +80,24 @@ function createPost(body) {
   return promise;  
 }
 
-export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost, deletePostById, createPost };
+function getHashtags() {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `hashtags`, header);
+  return promise;  
+}
+
+export { 
+  signUp, 
+  signIn, 
+  validToken, 
+  listPosts, 
+  listUsersSearch, 
+  listPostsByUser, 
+  listPostsByHashtag, 
+  getPostLikes, 
+  likePost, 
+  unlikePost, 
+  deletePostById, 
+  createPost, 
+  getHashtags 
+};
