@@ -29,6 +29,8 @@ export default function Timeline( { page } ) {
           .catch(e => alert("An error occured while trying to fetch the posts, please refresh the page")); 
   }
 
+  console.log(posts)
+
   return (
     <>
       <Title showMenu={showMenu}>timeline</Title>

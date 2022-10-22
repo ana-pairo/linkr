@@ -50,4 +50,22 @@ function listPostsByHashtag(hashtag) {
   return promise;
 }
 
-export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag };
+function getPostLikes(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `likes/${postId}`, header);
+  return promise;
+}
+
+function likePost(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `like/${postId}`, header);
+  return promise;
+}
+
+function unlikePost(postId) {
+  const header = createHeader();
+  const promise = axios.delete(BASE_URL + `like/${postId}`, header);
+  return promise;
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost };
