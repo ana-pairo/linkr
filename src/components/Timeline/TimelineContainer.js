@@ -16,12 +16,34 @@ export default function Timeline() {
 
   function list(){
     const promise = listPosts();
-        promise
-            .then(r => setPosts(r.data))
-            .catch(e => console.log(e.message));
+      promise
+          .then(r => {
+            setPosts(r.data)
+            if(r.data.length === 0){
+              alert("There are no posts yet");
+            }
+          })
+          .catch(e => alert("An error occured while trying to fetch the posts, please refresh the page")); 
   }
 
   console.log(posts);
+
+  if(posts.length === 0){
+    return (
+      <>
+        <Title showMenu={showMenu}>timeline</Title>
+        <Wrapper showMenu={showMenu}>
+          <LeftWrapper>
+            <CreatePostBox />
+            <h1>Loading...</h1>
+          </LeftWrapper>
+          <RightWrapper>
+            <SideBar />
+          </RightWrapper>
+        </Wrapper>
+      </>
+    );
+  }
 
   return (
     <>
@@ -29,7 +51,7 @@ export default function Timeline() {
       <Wrapper showMenu={showMenu}>
         <LeftWrapper>
           <CreatePostBox />
-          {posts.map((e,i) => <Post />)}
+          {posts.map((e,i) => <Post key={i} obj={e} />)}
         </LeftWrapper>
         <RightWrapper>
           <SideBar />
@@ -68,6 +90,12 @@ const Wrapper = styled.div`
 const LeftWrapper = styled.div`
   width: 611px;
   height: 90%;
+
+  h1 {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+  }
 `;
 
 const RightWrapper = styled.div`

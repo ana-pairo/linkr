@@ -64,10 +64,14 @@ const RightHandleBar = styled.div`
     cursor: pointer;
   }
 
+  a {
+    text-decoration: none;
+    margin-top: 12px;
+  }
+
   .post {
     width: 100%;
     height: 100%;
-    margin-top: 12px;
     border: 1px solid #4d4d4d;
     border-radius: 11px;
     overflow: hidden;
