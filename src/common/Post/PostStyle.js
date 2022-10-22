@@ -39,6 +39,18 @@ const LeftHandleBar = styled.div`
     cursor: pointer;
   }
 
+  #likesTip {
+    color: #505050;
+    font-size: 11px;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+  }
+
+  #likesTip .tooltip-arrow {
+    background-color: #ffffff;
+    opacity: 90%;
+  }
+
   @media (max-width: 524px) {
     width: 40px;
 
