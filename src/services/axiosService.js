@@ -74,4 +74,10 @@ function deletePostById(postId) {
   return promise;  
 }
 
-export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost, deletePostById };
+function createPost(body) {
+  const header = createHeader();
+  const promise = axios.post(BASE_URL + `post/`, body, header);
+  return promise;  
+}
+
+export { signUp, signIn, validToken, listPosts, listUsersSearch, listPostsByUser, listPostsByHashtag, getPostLikes, likePost, unlikePost, deletePostById, createPost };

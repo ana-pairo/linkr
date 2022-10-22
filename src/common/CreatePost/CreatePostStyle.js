@@ -76,7 +76,7 @@ const RightHandleBar = styled.div`
     background: #1877F2;
     border-radius: 5px;
     border: 0;
-    cursor: pointer;
+    cursor: ${(props) => (props.disabled ? "default" : "pointer")};
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
