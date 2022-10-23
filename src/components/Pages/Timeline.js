@@ -13,8 +13,6 @@ export default function Timeline( { page } ) {
   const [noPosts, setNoPosts] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
 
-  console.log("renderizou timeline")
-
   useEffect(() => {
     listTimeLine();
   }, [isDisable]);
