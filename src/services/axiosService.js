@@ -86,6 +86,12 @@ function getHashtags() {
   return promise;  
 }
 
+function updatePost(postId, body) {
+  const header = createHeader();
+  const promise = axios.patch(BASE_URL + `post/${postId}`, body, header);
+  return promise;  
+}
+
 export { 
   signUp, 
   signIn, 
@@ -99,5 +105,6 @@ export {
   unlikePost, 
   deletePostById, 
   createPost, 
-  getHashtags 
+  getHashtags,
+  updatePost
 };
