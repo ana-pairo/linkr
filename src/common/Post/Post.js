@@ -249,7 +249,27 @@ export default function Post({ obj, isDisable, setIsDisable }) {
       .catch(() => {
         alert("An error has occurred on editing post's description");
         setIsDisable(false);
-      });  
+      });
+  }
+     
+  function selectHash(){
+    const full = [];
+    const hash = obj.description.split("#");
+    hash.map((e,i) => {
+      full.push(e.split(" ")[0],e.split(" ")[1]);
+    });
+    
+  
+    return <>{full.map((e,i) => {
+      if(i !== 0 && i%2 === 0){
+        return <strong onClick={() => navigate("/hashtag/" + e)} key={i}>#{e} </strong>;
+      }else {
+        if(e !== undefined){
+          return e + " ";
+        }
+      }
+    })}</>;
+  
   }
 
   return (
@@ -326,7 +346,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
               </button>
             </form> :
             <p>
-              {obj.description}
+              {selectHash()}
             </p>
         }
         <a href={obj.link} target="_blank" rel="noopener noreferrer">
