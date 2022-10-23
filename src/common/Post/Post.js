@@ -82,14 +82,6 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   const [formInf, setFormInf] = useState({newDescription:obj.description});
   const [isEditing, setIsEditing] = useState(false);
 
-  function redirect () {
-    setUserInfo({
-      username: obj.username,
-      picture: obj.userPhoto
-    }); 
-    navigate("/user/"+ obj.userId);
-  }
-
   useEffect(() => {
     let likes;
     getPostLikes(obj.id)
@@ -252,23 +244,15 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   }
      
   function selectHash(){
-    const full = [];
-    const hash = obj.description.split("#");
-    hash.map((e,i) => {
-      full.push(e.split(" ")[0],e.split(" ")[1]);
-    });
+    const words = obj.description.split(' ');
     
-  
-    return <>{full.map((e,i) => {
-      if(i !== 0 && i%2 === 0){
-        return <strong onClick={() => navigate("/hashtag/" + e)} key={i}>#{e} </strong>;
-      }else {
-        if(e !== undefined){
-          return e + " ";
-        }
+    return <>{words.map((word, index) => {
+      if(word.includes("#")){
+        return <strong onClick={() => navigate("/hashtag/" + word.substring(1))} key={index}>{word} </strong>;
+      } else {
+        return word + " "
       }
     })}</>;
-  
   }
 
   return (
@@ -334,7 +318,6 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         </div>
         {
           isEditing ?
-            
             <form onSubmit={handleForm}>
               <textarea type="text" name="newDescription" value={formInf.newDescription}
                 placeholder="Awesome article about #javascript" disabled={isDisable}
