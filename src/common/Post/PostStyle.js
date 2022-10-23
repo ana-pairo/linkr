@@ -134,6 +134,23 @@ const RightHandleBar = styled.div`
 
   p {
     color: #b7b7b7;
+    word-break: break-all;
+  }
+
+  form textarea {
+    width: 100%;
+    height: auto;
+    padding: 4px 9px;
+    font-size: 14px;
+    font-family: "Lato", sans-serif;
+    background-color: #ffffff;
+    color: #4C4C4C;
+    border-radius: 7px;
+    resize: none;
+  }
+
+  form button {
+    display: none;
   }
 
   strong {

@@ -1,6 +1,6 @@
 import { LeftHandleBar, PostWrapper, RightHandleBar } from "./PostStyle";
 import { FaRegHeart, FaHeart, FaPencilAlt, FaTrash } from "react-icons/fa";
-import { deletePostById, getPostLikes, likePost, unlikePost } from "../../services/axiosService";
+import { deletePostById, getPostLikes, likePost, unlikePost, updatePost } from "../../services/axiosService";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, useContext } from "react";
 import ReactTooltip from 'react-tooltip';
@@ -79,6 +79,8 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   const navigate = useNavigate(); 
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [formInf, setFormInf] = useState({newDescription:obj.description});
+  const [isEditing, setIsEditing] = useState(false);
 
   function redirect () {
     setUserInfo({
@@ -196,6 +198,60 @@ export default function Post({ obj, isDisable, setIsDisable }) {
     setIsOpen(false);
   }
 
+  function editPost() {
+    isEditing ? resetForm() : setIsEditing(true);
+  }
+
+  function onKeyPress(e) {
+    if(e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      handleForm();
+    }
+    if (e.keyCode === 27) resetForm();
+  }
+
+  function resetForm () {
+    setIsEditing(false);
+    setFormInf({
+      ...formInf,
+      newDescription: obj.description,
+    });
+  }
+
+  function updateInfs(e){
+    setFormInf({
+      ...formInf,
+      [e.target.name] : e.target.value 
+    });
+  }
+
+  function focus(e) {
+    var val = e.target.value;
+    e.target.value = '';
+    e.target.value = val;
+  }
+
+  function handleForm(e) {
+    setIsDisable(true);
+    const split = formInf.newDescription.split("#");
+    const trends = split.map(e => e.split(" ")[0]);
+    trends.shift();
+    const body = {...formInf, newTrends: trends}
+    console.log(formInf);
+
+    const promise = updatePost(obj.id, body);
+    promise
+      .then((r) => {
+        setFormInf({newDescription:formInf.newDescription});
+        setIsDisable(false);
+        setIsEditing(false);
+      })
+      .catch(() => {
+        alert("An error has occurred on editing post's description");
+        setIsDisable(false);
+      });
+  }
+     
   function selectHash(){
     const full = [];
     const hash = obj.description.split("#");
@@ -234,7 +290,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
           {
             (userInfo.userId === obj.userId) ?
             <>
-              <FaPencilAlt style={{ cursor: "pointer" }}></FaPencilAlt>
+              <FaPencilAlt style={{ cursor: "pointer" }} onClick={editPost}></FaPencilAlt>
               <FaTrash style={{ marginLeft: "13px", cursor: "pointer" }} onClick={openModal}></FaTrash>
               <Modal
                 isOpen={modalIsOpen}
@@ -277,9 +333,22 @@ export default function Post({ obj, isDisable, setIsDisable }) {
             ""
           }
         </div>
-        <p>
-        {selectHash()}
-        </p>
+        {
+          isEditing ?
+            
+            <form onSubmit={handleForm}>
+              <textarea type="text" name="newDescription" value={formInf.newDescription}
+                placeholder="Awesome article about #javascript" disabled={isDisable}
+                onChange={updateInfs} onKeyDown={onKeyPress} autoFocus
+                onFocus={focus}
+              ></textarea>
+              <button disabled={isDisable} type="submit" >
+              </button>
+            </form> :
+            <p>
+              {selectHash()}
+            </p>
+        }
         <a href={obj.link} target="_blank" rel="noopener noreferrer">
         <div className="post">
           <div className="text">
