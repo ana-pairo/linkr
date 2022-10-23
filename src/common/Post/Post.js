@@ -198,6 +198,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
     setIsOpen(false);
   }
 
+
   function editPost() {
     isEditing ? resetForm() : setIsEditing(true);
   }
@@ -249,6 +250,26 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         alert("An error has occurred on editing post's description");
         setIsDisable(false);
       });  
+
+  function selectHash(){
+    const full = [];
+    const hash = obj.description.split("#");
+    hash.map((e,i) => {
+      full.push(e.split(" ")[0],e.split(" ")[1]);
+    });
+    
+  
+    return <>{full.map((e,i) => {
+      if(i !== 0 && i%2 === 0){
+        return <strong onClick={() => navigate("/hashtag/" + e)} key={i}>#{e} </strong>;
+      }else {
+        if(e !== undefined){
+          return e + " ";
+        }
+      }
+    })}</>;
+  
+
   }
 
   return (
@@ -312,6 +333,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
             ""
           }
         </div>
+
         {
           isEditing ?
             
@@ -328,6 +350,11 @@ export default function Post({ obj, isDisable, setIsDisable }) {
               {obj.description}
             </p>
         }
+
+        <p>
+        {selectHash()}
+        </p>
+
         <a href={obj.link} target="_blank" rel="noopener noreferrer">
         <div className="post">
           <div className="text">
