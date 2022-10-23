@@ -237,7 +237,6 @@ export default function Post({ obj, isDisable, setIsDisable }) {
     const trends = split.map(e => e.split(" ")[0]);
     trends.shift();
     const body = {...formInf, newTrends: trends}
-    console.log(formInf);
 
     const promise = updatePost(obj.id, body);
     promise

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:4000/"; //link da url
+const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
