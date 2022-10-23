@@ -150,7 +150,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
 
   function renderToolTip () {
     return (
-      (totalLikes) ?
+      (totalLikes != 0) ?
         <ReactTooltip id={`likesTip${obj.id}`} place="bottom" effect="solid" type="light">
           {renderLikes()}
         </ReactTooltip> :
