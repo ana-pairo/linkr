@@ -264,7 +264,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
           ? <FaHeart style={heartStyle} onClick={unlike}></FaHeart>
           : <FaRegHeart style={heartStyle} onClick={like}></FaRegHeart>
         }
-        <p data-tip data-for={`likesTip${obj.id}`}>{totalLikes} likes</p>
+        <p data-tip data-for={`likesTip${obj.id}`}>{totalLikes} {totalLikes == 1? "like" : "likes"}</p>
         {renderToolTip()}
       </LeftHandleBar>
       <RightHandleBar>

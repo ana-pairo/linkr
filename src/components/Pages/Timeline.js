@@ -40,7 +40,7 @@ export default function Timeline( { page } ) {
           {posts.length === 0 && !noPosts? <h1>Loading...</h1> : posts.map((e,i) => <Post key={i} obj={e} isDisable={isDisable} setIsDisable={setIsDisable} />)}
         </LeftWrapper>
         <RightWrapper>
-          <SideBar />
+          <SideBar aux={posts} />
         </RightWrapper>
       </Wrapper>
     </>
