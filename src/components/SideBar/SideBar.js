@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getHashtags } from "../../services/axiosService";
 
-export default function SideBar() {
+export default function SideBar( { aux } ) {
   const [hashtags, setHashtags] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => { 
     list();
-  }, []);
+  }, [aux]);
 
   function list(){
     const promise = getHashtags();
