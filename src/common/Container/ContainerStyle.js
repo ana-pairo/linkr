@@ -7,7 +7,14 @@ const Container = styled.div`
   position: relative;
   justify-content: center;
   background-color: #333333;
-  overflow-y: hidden;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export { Container };
