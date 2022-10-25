@@ -53,6 +53,8 @@ const Imagem = styled.div`
   align-items: center;
   width: 100px;
   cursor: pointer;
+  position: absolute;
+  right: 0;
 
   img {
     width: 53px;
@@ -192,6 +194,7 @@ const SearchOpen = styled.div`
   justify-content: center;
   align-items: center;
   z-index: -1;
+  display: ${(props) => (props.showList ? "flex" : "none")};
 
   div {
     height: 45px;
