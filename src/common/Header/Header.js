@@ -20,6 +20,8 @@ import { listUsersSearch } from "../../services/axiosService";
 export default function Header() {
   const { userPicture, setUserPicture } = useContext(PictureContext);
   const { showMenu, setShowMenu } = useContext(MenuContext);
+  const [showList, setShowList] = useState(true);
+  const [inputBox, setInputBox] = useState({ name: "" });
   const { setUserInfo } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -48,31 +50,51 @@ export default function Header() {
       <div>
         <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
-      <SearchBox showMenu={showMenu}>
-        <DebounceInput
-          minLength={3}
-          placeholder="Search for people"
-          debounceTimeout={300}
-          onChange={(e) => listUsers(e.target.value)}
-        />
-        <div>
-          <BsSearch color={"#C6C6C6"} />
-        </div>
-        <SearchOpen>
-          {users.map((e, i) => {
-            return (
-              <div key={i}>
-                <img
-                  alt={e.username}
-                  src={e.picture}
-                  onClick={() => redirect(e)}
-                />
-                <p onClick={() => redirect(e)}>{e.username}</p>
-              </div>
-            );
-          })}
-        </SearchOpen>
-      </SearchBox>
+      <ClickAwayListener onClickAway={() => setShowList(false)}>
+        <SearchBox>
+          <DebounceInput
+            minLength={3}
+            placeholder="Search for people"
+            value={inputBox.name}
+            debounceTimeout={300}
+            onChange={(e) => {
+              listUsers(e.target.value);
+              setInputBox({ name: e.target.value });
+            }}
+            onClick={() => setShowList(true)}
+          />
+          <div>
+            <BsSearch color={"#C6C6C6"} />
+          </div>
+
+          <SearchOpen showList={showList}>
+            {users.map((e, i) => {
+              return (
+                <div key={i}>
+                  <img
+                    alt={e.username}
+                    src={e.picture}
+                    onClick={() => {
+                      redirect(e);
+                      setShowList(false);
+                      setInputBox({ name: "" });
+                    }}
+                  />
+                  <p
+                    onClick={() => {
+                      redirect(e);
+                      setShowList(false);
+                      setInputBox({ name: "" });
+                    }}
+                  >
+                    {e.username}
+                  </p>
+                </div>
+              );
+            })}
+          </SearchOpen>
+        </SearchBox>
+      </ClickAwayListener>
       <ClickAwayListener onClickAway={() => setShowMenu(false)}>
         <Imagem
           showMenu={showMenu}

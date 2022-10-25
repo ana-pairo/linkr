@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Post from "../../common/Post/Post";
 import SideBar from "../SideBar/SideBar";
-import Title from "../../common/PagesTitle.js/PageTitle";
+import Title from "../../common/PagesTitle/PageTitle";
 import MenuContext from "../../contexts/MenuContext";
 import { listPosts } from "../../services/axiosService";
 import { useContext, useEffect, useState } from "react";
