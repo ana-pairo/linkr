@@ -26,7 +26,7 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 1000px) {
-    position: fixed;
+    position: absolute;
     width: 611px;
     top: ${(props) => (props.showMenu ? "190px" : "150px")};
     transition: top 0.5s;

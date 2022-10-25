@@ -7,10 +7,10 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 0 30px;
   height: 80px;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 4;
   background-color: #151515;
 
   h1 {
@@ -30,6 +30,20 @@ const Wrapper = styled.div`
       font-size: 45px;
       line-height: 50px;
     }
+  }
+`;
+
+const Shadow = styled.div`
+  height: 0px;
+  @media (max-width: 1000px) {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: ${(props) => (props.showMenu ? "100px" : "70px")};
+    z-index: 1;
+    background-color: #333333;
+    transition: height 0.5s;
   }
 `;
 
@@ -87,6 +101,7 @@ const Menu = styled.div`
   align-items: center;
   text-align: center;
   background-color: #151515;
+  z-index: 3;
 
   h1 {
     opacity: ${(props) => (props.showMenu ? "1" : "0")};
@@ -113,6 +128,7 @@ const Menu = styled.div`
 const SearchBox = styled.div`
   width: 35vw;
   position: relative;
+  z-index: 3;
 
   input {
     width: 100%;
@@ -167,7 +183,7 @@ const SearchBox = styled.div`
 
 const SearchOpen = styled.div`
   width: 35vw;
-  background: #E7E7E7;
+  background: #e7e7e7;
   border-radius: 0 0 8px 8px;
   position: fixed;
   transform: translateY(-10px);
@@ -193,7 +209,7 @@ const SearchOpen = styled.div`
     }
 
     p {
-      font-family: 'Lato', sans-serif;
+      font-family: "Lato", sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 19px;
@@ -211,11 +227,10 @@ const SearchOpen = styled.div`
   & > div:last-child {
     margin-bottom: 10px;
   }
-  
+
   @media (max-width: 1000px) {
     width: 85%;
   }
-
 `;
 
-export { Menu, Imagem, Wrapper, SearchBox, SearchOpen };
+export { Menu, Imagem, Wrapper, SearchBox, SearchOpen, Shadow };
