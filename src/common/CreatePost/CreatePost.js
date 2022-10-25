@@ -48,7 +48,6 @@ export default function CreatePost({ listTimeLine }) {
         setDisabled(false);
       })
       .catch(() => {
-        // alert("Houve um erro ao publicar seu link");
         swal("Oops", "Something went wrong posting your link", "error");
         setDisabled(false);
       });
