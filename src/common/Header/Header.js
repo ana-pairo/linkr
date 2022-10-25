@@ -3,17 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import ClickAwayListener from "react-click-away-listener";
-import { Menu, Imagem, Wrapper, SearchBox, SearchOpen } from "./HeaderStyledComponents";
+import {
+  Menu,
+  Imagem,
+  Wrapper,
+  SearchBox,
+  SearchOpen,
+  Shadow,
+} from "./HeaderStyledComponents";
 import PictureContext from "../../contexts/PictureContext";
 import MenuContext from "../../contexts/MenuContext";
 import UserContext from "../../contexts/UserContext";
-import {DebounceInput} from 'react-debounce-input';
+import { DebounceInput } from "react-debounce-input";
 import { listUsersSearch } from "../../services/axiosService";
 
 export default function Header() {
   const { userPicture, setUserPicture } = useContext(PictureContext);
   const { showMenu, setShowMenu } = useContext(MenuContext);
-  const { setUserInfo } = useContext(UserContext); 
+  const { setUserInfo } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
@@ -23,19 +30,17 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function listUsers(search){
+  function listUsers(search) {
     const promise = listUsersSearch(search);
-      promise
-          .then(r => setUsers(r.data))
-          .catch(e => setUsers([]));
+    promise.then((r) => setUsers(r.data)).catch((e) => setUsers([]));
   }
 
-  function redirect (e) {
+  function redirect(e) {
     setUserInfo({
       username: e.username,
-      picture: e.picture
-    }); 
-    navigate("/user/"+ e.id);
+      picture: e.picture,
+    });
+    navigate("/user/" + e.id);
   }
 
   return (
@@ -48,15 +53,20 @@ export default function Header() {
           minLength={3}
           placeholder="Search for people"
           debounceTimeout={300}
-          onChange={e => listUsers(e.target.value)} />
+          onChange={(e) => listUsers(e.target.value)}
+        />
         <div>
           <BsSearch color={"#C6C6C6"} />
         </div>
         <SearchOpen>
-          {users.map((e,i) => {
+          {users.map((e, i) => {
             return (
-              <div key={i} >
-                <img alt={e.username} src={e.picture} onClick={() => redirect(e)} />
+              <div key={i}>
+                <img
+                  alt={e.username}
+                  src={e.picture}
+                  onClick={() => redirect(e)}
+                />
                 <p onClick={() => redirect(e)}>{e.username}</p>
               </div>
             );
@@ -87,6 +97,8 @@ export default function Header() {
       >
         <h1>Logout</h1>
       </Menu>
+
+      <Shadow showMenu={showMenu} />
     </Wrapper>
   );
 }

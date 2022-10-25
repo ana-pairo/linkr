@@ -15,11 +15,9 @@ export default function Timeline() {
     list();
   }, []);
 
-  function list(){
+  function list() {
     const promise = listPosts();
-        promise
-            .then(r => setPosts(r.data))
-            .catch(e => console.log(e.message));
+    promise.then((r) => setPosts(r.data)).catch((e) => console.log(e.message));
   }
 
   return (
@@ -28,7 +26,9 @@ export default function Timeline() {
       <Wrapper showMenu={showMenu}>
         <LeftWrapper>
           <CreatePostBox />
-          {posts.map((e,i) => <Post postObj={e} key={i} />)}
+          {posts.map((e, i) => (
+            <Post postObj={e} key={i} />
+          ))}
         </LeftWrapper>
         <RightWrapper>
           <SideBar />
@@ -42,24 +42,15 @@ const Wrapper = styled.div`
   position: absolute;
   top: 230px;
   width: 940px;
-  height: calc(100vh - 250px);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  padding-bottom: 250px;
 
   @media (max-width: 1000px) {
     width: 100%;
     justify-content: center;
     top: ${(props) => (props.showMenu ? "270px" : "230px")};
-    height: ${(props) =>
-      props.showMenu ? "calc(100vh - 290px)" : "calc(100vh - 250px)"};
     transition: top 0.5s;
   }
 `;
