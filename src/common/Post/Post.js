@@ -1,7 +1,7 @@
 import { LeftHandleBar, PostContainer, PostWrapper, RightHandleBar, ShareWrapper } from "./PostStyle";
 import { FaPencilAlt, FaShare, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../../contexts/UserContext";
 import PostMetadata from "./PostMetadata";
 import PostDescription from "./PostDescription";
@@ -9,6 +9,7 @@ import PostLikes from "./PostLikes";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import PostShares from "./PostShares";
 import PostComments from "./PostComments";
+import { getOriginalPostUserData } from "../../services/axiosService";
 
 
 export default function Post({ obj, isDisable, setIsDisable }) {
@@ -16,7 +17,26 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [formInf, setFormInf] = useState({newDescription:obj.description});
   const [isEditing, setIsEditing] = useState(false);
+  const [userData, setUserData] = useState({
+    username: obj.username,
+    userPhoto: obj.userPhoto,
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (obj.originalId) {
+      console.log(obj.id)
+      getOriginalPostUserData(obj.id)
+        .then(res => {
+          console.log(res)
+          setUserData({
+            username: res.data.username,
+            userPhoto: res.data.picture,
+          })
+        })
+        .catch(error => console.log(error));
+    }
+  }, []);
 
   function redirect () {
     setUserInfo({
@@ -56,14 +76,14 @@ export default function Post({ obj, isDisable, setIsDisable }) {
       }
       <PostWrapper>
         <LeftHandleBar>
-          <img src={obj.userPhoto} alt={`User ${obj.username}`} onClick={() => redirect()} />
+          <img src={userData.userPhoto} alt={`User ${userData.username}`} onClick={() => redirect()} />
           <PostLikes obj={obj} setIsDisable={setIsDisable} />
           <PostComments />
           <PostShares obj={obj} isDisable={isDisable} setIsDisable={setIsDisable} />
         </LeftHandleBar>
         <RightHandleBar>
           <div className="header">
-            <p onClick={redirect}>{obj.username}</p>
+            <p onClick={redirect}>{userData.username}</p>
             {
               (userInfo.userId === obj.userId) ?
                 <>

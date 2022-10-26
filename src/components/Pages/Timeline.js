@@ -18,6 +18,8 @@ export default function Timeline({ page }) {
     listTimeLine();
   }, [isDisable]);
 
+  console.log("renderizou")
+
   function listTimeLine() {
     setNoPosts(false);
     const promise = listPosts();
