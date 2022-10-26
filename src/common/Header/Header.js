@@ -51,7 +51,7 @@ export default function Header() {
         <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
       <ClickAwayListener onClickAway={() => setShowList(false)}>
-        <SearchBox>
+        <SearchBox showMenu={showMenu}>
           <DebounceInput
             minLength={3}
             placeholder="Search for people"

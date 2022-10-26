@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const PostContainer = styled.div`
   width: 100%;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
   border-radius: 16px;
 `;
 
@@ -23,11 +23,110 @@ const ShareWrapper = styled.div`
   }
 `;
 
+const CommentsWrapper = styled.div`
+  height: ${(props) => (props.isCommentsOpen ? "100%" : "0px")};
+  overflow-y: hidden;
+  display: flex;
+  transition: display 5s;
+  align-items: center;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  margin-bottom: 20px;
+  border-radius: 16px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+`;
+
+const Comment = styled.div`
+  width: 90%;
+  height: 70px;
+  border-bottom: 1px solid #353535;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  img {
+    margin-right: 20px;
+  }
+`;
+
+const CommentDescription = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+
+  h1 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #acacac;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #f3f3f3;
+  }
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  height: 70px;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  position: relative;
+
+  input {
+    height: 40px;
+    width: 89%;
+    background: #252525;
+    border-radius: 8px;
+    border: none;
+    padding: 0 40px 0 15px;
+
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #acacac;
+    outline: none;
+    margin-left: 15px;
+  }
+
+  input::placeholder {
+    font-family: "Lato", sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.05em;
+    color: #575757;
+  }
+
+  div {
+    position: absolute;
+    right: 30px;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const PostWrapper = styled.div`
   width: 100%;
   max-width: 611px;
   padding: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border-radius: 16px;
   background-color: #171717;
   display: flex;
@@ -41,7 +140,7 @@ const PostWrapper = styled.div`
 `;
 
 const LeftHandleBar = styled.div`
-  width: 50px;
+  min-width: 75px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,7 +169,7 @@ const LeftHandleBar = styled.div`
   }
 
   @media (max-width: 524px) {
-    width: 40px;
+    min-width: 60px;
 
     img {
       width: 40px;
@@ -81,8 +180,8 @@ const LeftHandleBar = styled.div`
     p {
       margin-top: 12px;
       font-size: 9px;
-    }    
-  }  
+    }
+  }
 `;
 
 const RightHandleBar = styled.div`
@@ -167,7 +266,7 @@ const RightHandleBar = styled.div`
     font-size: 14px;
     font-family: "Lato", sans-serif;
     background-color: #ffffff;
-    color: #4C4C4C;
+    color: #4c4c4c;
     border-radius: 7px;
     resize: none;
   }
@@ -210,4 +309,14 @@ const RightHandleBar = styled.div`
   }
 `;
 
-export { PostContainer, ShareWrapper, PostWrapper, LeftHandleBar, RightHandleBar };
+export {
+  PostContainer,
+  ShareWrapper,
+  PostWrapper,
+  LeftHandleBar,
+  RightHandleBar,
+  CommentsWrapper,
+  Comment,
+  InputBox,
+  CommentDescription,
+};

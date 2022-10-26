@@ -13,9 +13,9 @@ export default function PrivatePage({ children }) {
   const [aux, setAux] = useState("");
   const { setUserInfo } = useContext(UserContext);
 
-  if(aux !== children.props.page){
+  if (aux !== children.props.page) {
     setAux(children.props.page);
-  } 
+  }
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -33,7 +33,9 @@ export default function PrivatePage({ children }) {
       await validToken();
       setUserInfo({
         userId: auth.userId,
-      })
+        picture: auth.picture,
+        username: auth.username,
+      });
 
       setRender(
         <Container>
