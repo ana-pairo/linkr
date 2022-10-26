@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+const BASE_URL = "http://localhost:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -92,6 +92,18 @@ function updatePost(postId, body) {
   return promise;  
 }
 
+function getTotalPostShares(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `shares/${postId}`, header);
+  return promise;  
+}
+
+function sharePost(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `share/${postId}`, header);
+  return promise;  
+}
+
 export { 
   signUp, 
   signIn, 
@@ -106,5 +118,7 @@ export {
   deletePostById, 
   createPost, 
   getHashtags,
-  updatePost
+  updatePost,
+  getTotalPostShares,
+  sharePost
 };
