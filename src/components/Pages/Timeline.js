@@ -20,7 +20,7 @@ export default function Timeline({ page }) {
 
   function listTimeLine() {
     setNoPosts(false);
-    const promise = listPosts();
+    const promise = listPosts(1);
     promise
       .then((r) => {
         setPosts(r.data);

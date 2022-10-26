@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
-// const BASE_URL = "http://localhost:4000/";
+// const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+const BASE_URL = "http://localhost:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -27,9 +27,9 @@ function validToken() {
   return promise;
 }
 
-function listPosts() {
+function listPosts(number) {
   const header = createHeader();
-  const promise = axios.get(BASE_URL + "timeline", header);
+  const promise = axios.get(BASE_URL + "timeline/" + number, header);
   return promise;
 }
 
