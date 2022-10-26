@@ -13,6 +13,7 @@ export default function HashtagPage({ page }) {
   const [noPosts, setNoPosts] = useState(false);
   const [aux, setAux] = useState("");
   const { hashtag } = useParams();
+  const [isDisable, setIsDisable] = useState(false);
 
   if (hashtag !== aux) {
     setAux(hashtag);
@@ -23,7 +24,7 @@ export default function HashtagPage({ page }) {
     if (hashtag) {
       listHashtagPosts();
     }
-  }, [aux]);
+  }, [aux, isDisable]);
 
   function listHashtagPosts() {
     const promise = listPostsByHashtag(hashtag);
@@ -50,7 +51,14 @@ export default function HashtagPage({ page }) {
           {posts.length === 0 && !noPosts ? (
             <h1>Loading...</h1>
           ) : (
-            posts.map((e, i) => <Post key={i} obj={e} />)
+            posts.map((e, i) => 
+              <Post 
+                key={i}
+                obj={e}
+                isDisable={isDisable}
+                setIsDisable={setIsDisable}
+              />
+            )
           )}
         </LeftWrapper>
         <RightWrapper>

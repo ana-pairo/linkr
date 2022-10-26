@@ -18,6 +18,7 @@ export default function UserPage({ page }) {
   const { id } = useParams();
   const idNumber = parseInt(id);
   const userId = JSON.parse(localStorage.getItem("Linkr")).userId;
+  const [isDisable, setIsDisable] = useState(false);
 
   if (id !== aux) {
     setAux(id);
@@ -28,7 +29,7 @@ export default function UserPage({ page }) {
     if (id) {
       listUserPosts();
     }
-  }, [aux]);
+  }, [aux, isDisable]);
 
   function listUserPosts() {
     const promise = listPostsByUser(id);
@@ -64,7 +65,14 @@ export default function UserPage({ page }) {
           {posts.length === 0 && !noPosts ? (
             <h1>Loading...</h1>
           ) : (
-            posts.map((e, i) => <Post key={i} obj={e} />)
+            posts.map((e, i) => 
+              <Post 
+                key={i}
+                obj={e}
+                isDisable={isDisable}
+                setIsDisable={setIsDisable}
+              />
+            )
           )}
         </LeftWrapper>
         <RightWrapper>

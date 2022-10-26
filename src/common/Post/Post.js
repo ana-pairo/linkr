@@ -56,7 +56,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
       <PostWrapper>
         <LeftHandleBar>
           <img src={obj.userPhoto} alt={`User ${obj.username}`} onClick={() => redirect()} />
-          <PostLikes obj={obj} />
+          <PostLikes obj={obj} setIsDisable={setIsDisable} />
           <PostShares obj={obj} isDisable={isDisable} setIsDisable={setIsDisable} />
         </LeftHandleBar>
         <RightHandleBar>
