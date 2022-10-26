@@ -16,10 +16,10 @@ export default function PostLikes ({ obj }) {
     const totalLikesRef = useRef();
     const { userInfo } = useContext(UserContext);
 
-
     useEffect(() => {
       let likes;
-      getPostLikes(obj.id)
+      const referencePostId = obj.originalId ? obj.originalId : obj.id;
+      getPostLikes(referencePostId)
       .then(res => {
         likes = res.data;
         likes.forEach(like => {
@@ -32,9 +32,10 @@ export default function PostLikes ({ obj }) {
         totalLikesRef.current = likes.length;
         setPostLikes(likes);
         postLikesRef.current = likes;
+        setTotalLikes(likes.length);
       })
       .catch(error => console.log(error));
-    }, [isLiked, obj.id, obj.userId, userInfo.userId]);
+    }, [isLiked]);
 
     function like() {
       likePost(obj.id)

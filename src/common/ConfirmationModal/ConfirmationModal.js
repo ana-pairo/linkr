@@ -1,6 +1,6 @@
 import { ThreeDots } from 'react-loader-spinner';
 import Modal from 'react-modal';
-import { deletePostById } from '../../services/axiosService';
+import { deletePostById, sharePost } from '../../services/axiosService';
 
 const modalStyles = {
     content: {
@@ -74,14 +74,15 @@ export default function ConfirmationModal ({
     cancelText,
     confirmText 
 }) {
+
     function closeModal() {
         setModalIsOpen(false);
     }
 
     function performModalAction () {
         switch (action) {
-            case "reshare":
-                console.log("reshare");
+            case "share":
+                share();
                 break;
             default:
                 deletePost();
@@ -94,6 +95,22 @@ export default function ConfirmationModal ({
       setIsDisable(true);
   
       deletePostById(obj.id)
+      .then(() => {
+        closeModal();
+        setIsDisable(false);
+      })
+      .catch((error) => {
+        alert('Could not delete the post');
+        console.log(error);
+        closeModal();
+        setIsDisable(false);
+      });
+    }
+
+    function share() {
+      setIsDisable(true);
+  
+      sharePost(obj.id)
       .then(() => {
         closeModal();
         setIsDisable(false);
