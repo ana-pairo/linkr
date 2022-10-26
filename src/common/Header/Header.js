@@ -32,6 +32,8 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(showMenu);
+
   function listUsers(search) {
     const promise = listUsersSearch(search);
     promise.then((r) => setUsers(r.data)).catch((e) => setUsers([]));
@@ -51,7 +53,7 @@ export default function Header() {
         <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
       <ClickAwayListener onClickAway={() => setShowList(false)}>
-        <SearchBox>
+        <SearchBox showMenu={showMenu}>
           <DebounceInput
             minLength={3}
             placeholder="Search for people"
