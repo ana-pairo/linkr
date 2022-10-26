@@ -39,7 +39,7 @@ export default function UserPage({ page }) {
           picture: r.data.user.picture,
         });
         setPosts(r.data.posts);
-        if (r.data.length === 0) {
+        if (r.data.posts.length === 0) {
           setNoPosts(true);
         }
       })
