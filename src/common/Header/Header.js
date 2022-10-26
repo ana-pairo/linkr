@@ -89,6 +89,7 @@ export default function Header() {
                   >
                     {e.username}
                   </p>
+                  <h1> • seguindo</h1>
                 </div>
               );
             })}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { getTotalComments } from "../../services/axiosService";
@@ -8,12 +8,11 @@ import {
   InputBox,
   CommentDescription,
 } from "./PostStyle";
-import UserContext from "../../contexts/UserContext";
 
 export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
-  const { userInfo } = useContext(UserContext);
+  const userInfo = JSON.parse(localStorage.getItem("Linkr"));
   function redirect(obj) {
     setUserInfo({
       username: obj.username,

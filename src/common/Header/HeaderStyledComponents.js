@@ -221,6 +221,14 @@ const SearchOpen = styled.div`
       margin-left: 10px;
       cursor: pointer;
     }
+
+    h1 {
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 23px;
+      font-family: "Lato", sans-serif;
+      color: #c5c5c5;
+    }
   }
 
   & > div:first-child {

@@ -11,7 +11,7 @@ export default function PrivatePage({ children }) {
   const navigate = useNavigate();
   const [render, setRender] = useState(<></>);
   const [aux, setAux] = useState("");
-  const { setUserInfo } = useContext(UserContext);
+  const { setUserInfo, userInfo } = useContext(UserContext);
 
   if (aux !== children.props.page) {
     setAux(children.props.page);

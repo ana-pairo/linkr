@@ -17,7 +17,6 @@ export default function FollowBox({ userId }) {
 
     promise
       .then((r) => {
-        console.log(r.data);
         setIsFollowed(r.data);
         if (r.data) {
           setBottomText("Unfollow");
