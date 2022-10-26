@@ -1,43 +1,63 @@
-import { useState } from "react";
-// import UserContext from "../../contexts/UserContext";
-// import { getTotalComments } from "../../services/axiosService";
-import { AiOutlineComment } from "react-icons/ai";
-import styled from "styled-components";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { IoPaperPlaneOutline } from "react-icons/io5";
 import { getTotalComments } from "../../services/axiosService";
+import {
+  CommentsWrapper,
+  Comment,
+  InputBox,
+  CommentDescription,
+} from "./PostStyle";
+import UserContext from "../../contexts/UserContext";
 
-function PostComents({ obj, setIsCommentsOpen, isCommentsOpen }) {
-  //   const [isclicked, setIsclicked] = useState(false);
-  // const { userInfo } = useContext(UserContext);
-  //   const [postComents, setPostComents] = useState([]);
-  const iconComentStyle = {
-    color: "#FFFFFF",
-    fontSize: "25px",
-    cursor: "pointer",
-  };
-  const [totalComments, setTotalComments] = useState(0);
+export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
+  const navigate = useNavigate();
+  const [comments, setComments] = useState([]);
+  const { userInfo } = useContext(UserContext);
+  function redirect(obj) {
+    setUserInfo({
+      username: obj.username,
+      picture: obj.picture,
+    });
+    navigate("/user/" + obj.userId);
+  }
 
-  //   useEffect(() => {
-  //     getTotalComments(obj.id)
-  //       .then((res) => setTotalComments(res.data.length))
-  //       .catch((error) => console.log(error));
-  //   }, []);
+  useEffect(() => {
+    getTotalComments(obj.id)
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
-    <Wrapper>
-      <AiOutlineComment
-        style={iconComentStyle}
-        onClick={() => setIsCommentsOpen(!isCommentsOpen)}
-      ></AiOutlineComment>
-      <p>{totalComments} comments</p>
-    </Wrapper>
+    <CommentsWrapper isCommentsOpen={isCommentsOpen}>
+      {comments
+        ? comments.map((comment, i) => (
+            <Comment key={i}>
+              <img
+                src={comment.picture}
+                alt={`User ${comment.username}`}
+                onClick={() => redirect(comment)}
+              />
+              <CommentDescription>
+                <h2>{comment.username}</h2>
+                <h1>{comment.description}</h1>
+              </CommentDescription>
+            </Comment>
+          ))
+        : ""}
+      <InputBox>
+        <img
+          src={userInfo.picture}
+          alt={`User ${userInfo.username}`}
+          onClick={() => redirect(userInfo)}
+        />
+        <input placeholder="write a comment..." />
+        <div>
+          <IoPaperPlaneOutline size={"20px"} color={"white"} />
+        </div>
+      </InputBox>
+    </CommentsWrapper>
   );
 }
-
-export default PostComents;
-
-const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;

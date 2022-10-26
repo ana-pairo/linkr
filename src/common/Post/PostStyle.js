@@ -35,8 +35,8 @@ const CommentsWrapper = styled.div`
   border-radius: 16px;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     object-fit: cover;
     cursor: pointer;
@@ -44,11 +44,39 @@ const CommentsWrapper = styled.div`
 `;
 
 const Comment = styled.div`
-  width: 95%;
+  width: 90%;
   height: 70px;
   border-bottom: 1px solid #353535;
   display: flex;
   align-items: center;
+  flex-direction: row;
+
+  img {
+    margin-right: 20px;
+  }
+`;
+
+const CommentDescription = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+
+  h1 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #acacac;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #f3f3f3;
+  }
 `;
 
 const InputBox = styled.div`
@@ -56,8 +84,7 @@ const InputBox = styled.div`
   height: 70px;
   flex-direction: row;
   align-items: center;
-  padding: 0 18px;
-  width: 100%;
+  width: 90%;
   position: relative;
 
   input {
@@ -291,4 +318,5 @@ export {
   CommentsWrapper,
   Comment,
   InputBox,
+  CommentDescription,
 };

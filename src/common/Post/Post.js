@@ -4,12 +4,9 @@ import {
   PostWrapper,
   RightHandleBar,
   ShareWrapper,
-  CommentsWrapper,
-  InputBox,
-  Comment,
 } from "./PostStyle";
 import { FaPencilAlt, FaShare, FaTrash } from "react-icons/fa";
-import { IoPaperPlaneOutline } from "react-icons/io5";
+
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
@@ -18,6 +15,7 @@ import PostDescription from "./PostDescription";
 import PostLikes from "./PostLikes";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import PostShares from "./PostShares";
+import PostCommentsButton from "./PostCommentsButton";
 import PostComments from "./PostComments";
 
 export default function Post({ obj, isDisable, setIsDisable }) {
@@ -75,7 +73,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
             onClick={() => redirect()}
           />
           <PostLikes obj={obj} />
-          <PostComments
+          <PostCommentsButton
             obj={obj}
             isCommentsOpen={isCommentsOpen}
             setIsCommentsOpen={setIsCommentsOpen}
@@ -132,17 +130,11 @@ export default function Post({ obj, isDisable, setIsDisable }) {
           <PostMetadata obj={obj} />
         </RightHandleBar>
       </PostWrapper>
-      <CommentsWrapper isCommentsOpen={isCommentsOpen}>
-        <Comment>oi</Comment>
-        <Comment>oi</Comment>
-        <InputBox>
-          <img src={obj.userPhoto} alt={`User ${obj.username}`} />
-          <input placeholder="write a comment..." />
-          <div>
-            <IoPaperPlaneOutline size={"20px"} color={"white"} />
-          </div>
-        </InputBox>
-      </CommentsWrapper>
+      <PostComments
+        obj={obj}
+        isCommentsOpen={isCommentsOpen}
+        setUserInfo={setUserInfo}
+      />
     </PostContainer>
   );
 }
