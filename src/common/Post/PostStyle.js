@@ -1,5 +1,28 @@
 import styled from "styled-components";
 
+const PostContainer = styled.div`
+  width: 100%;
+  background-color: #1E1E1E;
+  border-radius: 16px;
+`;
+
+const ShareWrapper = styled.div`
+  width: 100%;
+  min-height: 33px;
+  padding: 0 13px;
+  font-size: 11px;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+
+  strong {
+    font-weight: 700;
+  }
+`;
+
 const PostWrapper = styled.div`
   width: 100%;
   max-width: 611px;
@@ -33,7 +56,7 @@ const LeftHandleBar = styled.div`
   }
 
   p {
-    margin-top: 4px;
+    margin: 4px 0 20px 0;
     font-size: 11px;
     color: #ffffff;
     cursor: pointer;
@@ -187,4 +210,4 @@ const RightHandleBar = styled.div`
   }
 `;
 
-export { PostWrapper, LeftHandleBar, RightHandleBar };
+export { PostContainer, ShareWrapper, PostWrapper, LeftHandleBar, RightHandleBar };

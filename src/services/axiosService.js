@@ -105,6 +105,18 @@ function follow(body) {
   return promise;
 }
 
+function getTotalPostShares(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `shares/${postId}`, header);
+  return promise;
+}
+
+function sharePost(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `share/${postId}`, header);
+  return promise;
+}
+
 export {
   signUp,
   signIn,
@@ -120,6 +132,8 @@ export {
   createPost,
   getHashtags,
   updatePost,
+  getTotalPostShares,
+  sharePost,
   checkFollows,
   follow,
 };
