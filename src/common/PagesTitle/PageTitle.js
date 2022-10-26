@@ -6,7 +6,7 @@ export default function Title({ children, showMenu, userId, idNumber }) {
     return (
       <Wrapper showMenu={showMenu}>
         {children}
-        {userId === idNumber ? "" : <FollowBox>Follow</FollowBox>}
+        {userId === idNumber ? "" : <FollowBox userId={userId} />}
       </Wrapper>
     );
   } else {
