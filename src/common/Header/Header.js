@@ -32,8 +32,6 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(showMenu);
-
   function listUsers(search) {
     const promise = listUsersSearch(search);
     promise.then((r) => setUsers(r.data)).catch((e) => setUsers([]));
