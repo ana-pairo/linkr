@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+// const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+const BASE_URL = "http://localhost:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -71,40 +72,54 @@ function unlikePost(postId) {
 function deletePostById(postId) {
   const header = createHeader();
   const promise = axios.delete(BASE_URL + `post/${postId}`, header);
-  return promise;  
+  return promise;
 }
 
 function createPost(body) {
   const header = createHeader();
   const promise = axios.post(BASE_URL + `post/`, body, header);
-  return promise;  
+  return promise;
 }
 
 function getHashtags() {
   const header = createHeader();
   const promise = axios.get(BASE_URL + `hashtags`, header);
-  return promise;  
+  return promise;
 }
 
 function updatePost(postId, body) {
   const header = createHeader();
   const promise = axios.patch(BASE_URL + `post/${postId}`, body, header);
-  return promise;  
+  return promise;
 }
 
-export { 
-  signUp, 
-  signIn, 
-  validToken, 
-  listPosts, 
-  listUsersSearch, 
-  listPostsByUser, 
-  listPostsByHashtag, 
-  getPostLikes, 
-  likePost, 
-  unlikePost, 
-  deletePostById, 
-  createPost, 
+function checkFollows(body) {
+  const header = createHeader();
+  const promise = axios.post(BASE_URL + "followed", body, header);
+  return promise;
+}
+
+function follow(body) {
+  const header = createHeader();
+  const promise = axios.post(BASE_URL + "follow", body, header);
+  return promise;
+}
+
+export {
+  signUp,
+  signIn,
+  validToken,
+  listPosts,
+  listUsersSearch,
+  listPostsByUser,
+  listPostsByHashtag,
+  getPostLikes,
+  likePost,
+  unlikePost,
+  deletePostById,
+  createPost,
   getHashtags,
-  updatePost
+  updatePost,
+  checkFollows,
+  follow,
 };
