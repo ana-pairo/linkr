@@ -8,6 +8,7 @@ import PostDescription from "./PostDescription";
 import PostLikes from "./PostLikes";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import PostShares from "./PostShares";
+import PostComments from "./PostComments";
 
 
 export default function Post({ obj, isDisable, setIsDisable }) {
@@ -57,6 +58,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         <LeftHandleBar>
           <img src={obj.userPhoto} alt={`User ${obj.username}`} onClick={() => redirect()} />
           <PostLikes obj={obj} />
+          <PostComments />
           <PostShares obj={obj} isDisable={isDisable} setIsDisable={setIsDisable} />
         </LeftHandleBar>
         <RightHandleBar>
