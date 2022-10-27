@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState} from "react";
-import { useInterval } from 'usehooks-ts';
+import { useContext, useEffect, useState } from "react";
+import { useInterval } from "usehooks-ts";
 import swal from "sweetalert";
 import Post from "../../common/Post/Post";
 import SideBar from "../SideBar/SideBar";
@@ -14,6 +14,7 @@ export default function Timeline({ page }) {
   const { showMenu } = useContext(MenuContext);
   const [posts, setPosts] = useState([]);
   const [noPosts, setNoPosts] = useState(false);
+  const [noFollowing, setNoFollowing] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
   const [quant, setQuant] = useState(0);
   const [quantNew, setQuantNew] = useState(0);
@@ -26,14 +27,16 @@ export default function Timeline({ page }) {
     quantUpdate();
   }, 15000);
 
-
   function listTimeLine() {
     setNoPosts(false);
+    setNoFollowing(false);
     const promise = listPosts(1);
     promise
       .then((r) => {
         setPosts(r.data.posts);
         setQuant(r.data.quant);
+        setNoFollowing(!r.data.following);
+
         if (r.data.posts.length === 0) {
           setNoPosts(true);
         }
@@ -49,9 +52,7 @@ export default function Timeline({ page }) {
 
   function quantUpdate() {
     const promise = getQuant();
-    promise
-      .then((r) => setQuantNew(r.data))
-      .catch(() => console.log("Error"));
+    promise.then((r) => setQuantNew(r.data)).catch(() => console.log("Error"));
   }
 
   return (
@@ -60,8 +61,23 @@ export default function Timeline({ page }) {
       <Wrapper showMenu={showMenu}>
         <LeftWrapper>
           <CreatePost listTimeLine={listTimeLine} />
-          {quantNew > quant? <div onClick={listTimeLine} className="new" >{quantNew - quant} new {quantNew - quant === 1? "post" : "posts"}, load more! <TfiReload style={{ marginLeft: "6px" }}></TfiReload> </div> : "" }
-          {noPosts ? <h1>There are no posts yet</h1> : ""}
+          {quantNew > quant ? (
+            <div onClick={listTimeLine} className="new">
+              {quantNew - quant} new {quantNew - quant === 1 ? "post" : "posts"}
+              , load more! <TfiReload style={{ marginLeft: "6px" }}></TfiReload>{" "}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {noFollowing ? (
+            <h1>You don't follow anyone yet. Search for new friends!</h1>
+          ) : noPosts ? (
+            <h1>No posts found from your friends</h1>
+          ) : (
+            ""
+          )}
+
           {posts.length === 0 && !noPosts ? (
             <h1>Loading...</h1>
           ) : (
