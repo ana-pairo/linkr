@@ -20,22 +20,25 @@ import PostComments from "./PostComments";
 import { getOriginalPostUserData } from "../../services/axiosService";
 
 export default function Post({ obj, isDisable, setIsDisable }) {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [formInf, setFormInf] = useState({ newDescription: obj.description });
   const [isEditing, setIsEditing] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
+    userId: obj.userId,
     username: obj.username,
     userPhoto: obj.userPhoto,
   });
+  const { userId } = JSON.parse(localStorage.getItem("Linkr"));
 
   useEffect(() => {
     if (obj.originalId) {
       getOriginalPostUserData(obj.id)
         .then(res => {
           setUserData({
+            userId: res.data.id,
             username: res.data.username,
             userPhoto: res.data.picture,
           })
@@ -46,10 +49,10 @@ export default function Post({ obj, isDisable, setIsDisable }) {
 
   function redirect () {
     setUserInfo({
-      username: obj.username,
-      picture: obj.userPhoto,
+      username: userData.username,
+      picture: userData.userPhoto,
     });
-    navigate("/user/" + obj.userId);
+    navigate("/user/" + userData.userId);
   }
 
   function openModal() {
@@ -76,7 +79,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
             <FaShare style={{ marginRight: "6px" }}></FaShare>
             Re-posted by{" "}
             <strong>
-              {obj.userId === userInfo.userId ? "you" : obj.username}
+              {obj.userId === userId ? "you" : obj.username}
             </strong>
           </span>
         </ShareWrapper>
@@ -105,7 +108,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         <RightHandleBar>
           <div className="header">
             <p onClick={redirect}>{userData.username}</p>
-            {userInfo.userId === obj.userId ? (
+            {userId === obj.userId ? (
               <>
                 {obj.originalId ? (
                   ""
