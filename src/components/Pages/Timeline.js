@@ -22,13 +22,10 @@ export default function Timeline({ page }) {
     listTimeLine();
   }, [isDisable]);
 
-<<<<<<< HEAD
   useInterval(() => {
     quantUpdate();
   }, 15000);
-=======
-  console.log("renderizou")
->>>>>>> main
+
 
   function listTimeLine() {
     setNoPosts(false);
