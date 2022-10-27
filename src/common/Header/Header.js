@@ -50,7 +50,11 @@ export default function Header() {
       <div>
         <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
-      <ClickAwayListener onClickAway={() => setShowList(false)}>
+      <ClickAwayListener
+        onClickAway={() => {
+          setShowList(false);
+        }}
+      >
         <SearchBox showMenu={showMenu}>
           <DebounceInput
             minLength={3}
@@ -60,8 +64,11 @@ export default function Header() {
             onChange={(e) => {
               listUsers(e.target.value);
               setInputBox({ name: e.target.value });
+              if (!showList) setShowList(true);
             }}
-            onClick={() => setShowList(true)}
+            onClick={() => {
+              if (inputBox.name.length > 0) setShowList(true);
+            }}
           />
           <div>
             <BsSearch color={"#C6C6C6"} />
@@ -78,6 +85,7 @@ export default function Header() {
                       redirect(e);
                       setShowList(false);
                       setInputBox({ name: "" });
+                      setUsers([]);
                     }}
                   />
                   <p
@@ -85,6 +93,7 @@ export default function Header() {
                       redirect(e);
                       setShowList(false);
                       setInputBox({ name: "" });
+                      setUsers([]);
                     }}
                   >
                     {e.username}
