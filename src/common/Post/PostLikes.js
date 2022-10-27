@@ -7,7 +7,7 @@ import ReactTooltip from "react-tooltip";
 import UserContext from "../../contexts/UserContext";
 import { getPostLikes, likePost, unlikePost } from "../../services/axiosService";
 
-export default function PostLikes ({ obj }) {
+export default function PostLikes ({ obj, setIsDisable }) {
     const [ isLiked, setIsLiked ] = useState(false);
     const heartStyle = { color: isLiked ? "#AC0000" : "#FFFFFF", fontSize: "20px", cursor: "pointer" };
     const [postLikes, setPostLikes] = useState([]);
@@ -38,6 +38,7 @@ export default function PostLikes ({ obj }) {
     }, [isLiked]);
 
     function like() {
+      setIsDisable(true);
       likePost(obj.id)
       .then(() => {
         setIsLiked(true);
@@ -45,19 +46,28 @@ export default function PostLikes ({ obj }) {
         setPostLikes([
           ...postLikesRef.current,
           "Você"
-        ])
+        ]);
+        setIsDisable(false);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        setIsDisable(false);
+      });
     }
   
     function unlike() {
+      setIsDisable(true);
       unlikePost(obj.id)
       .then(() => {
         setIsLiked(false);
         setTotalLikes(totalLikesRef.current - 1);
         setPostLikes(postLikesRef.current.filter(like => like !== "Você"));
+        setIsDisable(false);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        setIsDisable(false);
+      });
     }
 
     function renderLikes() {

@@ -129,6 +129,12 @@ function getTotalComments(postId) {
   return promise;
 }
 
+function getOriginalPostUserData(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `userdata/${postId}`, header);
+  return promise;
+}
+
 export {
   signUp,
   signIn,
@@ -149,5 +155,6 @@ export {
   checkFollows,
   follow,
   getTotalComments,
-  getQuant
+  getQuant,
+  getOriginalPostUserData
 };
