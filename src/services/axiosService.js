@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
-const BASE_URL = "http://localhost:4000/";
+const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+// const BASE_URL = "http://localhost:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -30,6 +30,12 @@ function validToken() {
 function listPosts(number) {
   const header = createHeader();
   const promise = axios.get(BASE_URL + "timeline/" + number, header);
+  return promise;
+}
+
+function getQuant() {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "quant", header);
   return promise;
 }
 
@@ -143,4 +149,5 @@ export {
   checkFollows,
   follow,
   getTotalComments,
+  getQuant
 };
