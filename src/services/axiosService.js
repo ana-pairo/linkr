@@ -33,6 +33,12 @@ function listPosts(number) {
   return promise;
 }
 
+function getQuant() {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + "quant", header);
+  return promise;
+}
+
 function listUsersSearch(search) {
   const header = createHeader();
   const promise = axios.get(BASE_URL + "user/search/" + search, header);
@@ -123,6 +129,12 @@ function getTotalComments(postId) {
   return promise;
 }
 
+function getOriginalPostUserData(postId) {
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `userdata/${postId}`, header);
+  return promise;
+}
+
 export {
   signUp,
   signIn,
@@ -143,4 +155,6 @@ export {
   checkFollows,
   follow,
   getTotalComments,
+  getQuant,
+  getOriginalPostUserData
 };
