@@ -25,10 +25,8 @@ export default function Post({ obj, isDisable, setIsDisable }) {
 
   useEffect(() => {
     if (obj.originalId) {
-      console.log(obj.id)
       getOriginalPostUserData(obj.id)
         .then(res => {
-          console.log(res)
           setUserData({
             username: res.data.username,
             userPhoto: res.data.picture,
