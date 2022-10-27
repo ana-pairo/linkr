@@ -43,7 +43,7 @@ export default function PostComments({ isCommentsOpen, obj, setUserInfo, renderC
         setComments(res.data);
       })
       .catch((error) => console.log(error));
-  }, [renderComments]);
+  }, [renderComments, obj.id]);
 
   return (
     <CommentsWrapper isCommentsOpen={isCommentsOpen}>
