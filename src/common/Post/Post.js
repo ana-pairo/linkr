@@ -25,6 +25,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   const [formInf, setFormInf] = useState({ newDescription: obj.description });
   const [isEditing, setIsEditing] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [renderComments , setRenderCommensts] = useState(false);
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     username: obj.username,
@@ -95,6 +96,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
             obj={obj}
             isCommentsOpen={isCommentsOpen}
             setIsCommentsOpen={setIsCommentsOpen}
+            renderComments={renderComments}
           />
           <PostShares
             obj={obj}
@@ -152,6 +154,8 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         obj={obj}
         isCommentsOpen={isCommentsOpen}
         setUserInfo={setUserInfo}
+        renderComments={renderComments}
+        setRenderCommensts={setRenderCommensts}
       />
     </PostContainer>
   );
