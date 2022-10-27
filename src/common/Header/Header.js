@@ -25,16 +25,22 @@ export default function Header() {
   const { setUserInfo } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [loggedUser, setLoggedUser] = useState();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("Linkr"));
     setUserPicture(userData.picture);
+    setLoggedUser(userData.userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function listUsers(search) {
     const promise = listUsersSearch(search);
-    promise.then((r) => setUsers(r.data)).catch((e) => setUsers([]));
+    promise
+      .then((r) => {
+        setUsers(r.data);
+      })
+      .catch((e) => setUsers([]));
   }
 
   function redirect(e) {
@@ -50,7 +56,11 @@ export default function Header() {
       <div>
         <h1 onClick={() => navigate("/timeline")}>linkr</h1>
       </div>
-      <ClickAwayListener onClickAway={() => setShowList(false)}>
+      <ClickAwayListener
+        onClickAway={() => {
+          setShowList(false);
+        }}
+      >
         <SearchBox showMenu={showMenu}>
           <DebounceInput
             minLength={3}
@@ -60,8 +70,11 @@ export default function Header() {
             onChange={(e) => {
               listUsers(e.target.value);
               setInputBox({ name: e.target.value });
+              if (!showList) setShowList(true);
             }}
-            onClick={() => setShowList(true)}
+            onClick={() => {
+              if (inputBox.name.length > 0) setShowList(true);
+            }}
           />
           <div>
             <BsSearch color={"#C6C6C6"} />
@@ -78,6 +91,7 @@ export default function Header() {
                       redirect(e);
                       setShowList(false);
                       setInputBox({ name: "" });
+                      setUsers([]);
                     }}
                   />
                   <p
@@ -85,11 +99,12 @@ export default function Header() {
                       redirect(e);
                       setShowList(false);
                       setInputBox({ name: "" });
+                      setUsers([]);
                     }}
                   >
                     {e.username}
                   </p>
-                  <h1> • seguindo</h1>
+                  {e.follower ? <h1> • following</h1> : ""}
                 </div>
               );
             })}
@@ -97,17 +112,23 @@ export default function Header() {
         </SearchBox>
       </ClickAwayListener>
       <ClickAwayListener onClickAway={() => setShowMenu(false)}>
-        <Imagem
-          showMenu={showMenu}
-          onClick={() => {
-            setShowMenu(!showMenu);
-          }}
-        >
-          <div>
+        <Imagem showMenu={showMenu}>
+          <div
+            onClick={() => {
+              setShowMenu(!showMenu);
+            }}
+          >
             <MdOutlineExpandMore color="white" size="40px" />
           </div>
 
-          <img alt="User profile" src={userPicture} />
+          <img
+            alt="User profile"
+            src={userPicture}
+            onClick={() => {
+              setShowMenu(false);
+              navigate("/user/" + loggedUser);
+            }}
+          />
         </Imagem>
       </ClickAwayListener>
 

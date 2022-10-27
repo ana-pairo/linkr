@@ -1,12 +1,23 @@
 import styled from "styled-components";
 import FollowBox from "../FollowButton/FollowButton";
 
-export default function Title({ children, showMenu, userId, idNumber }) {
+export default function Title({
+  children,
+  showMenu,
+  userId,
+  idNumber,
+  setAux,
+  aux,
+}) {
   if (userId && idNumber) {
     return (
       <Wrapper showMenu={showMenu}>
         {children}
-        {userId === idNumber ? "" : <FollowBox userId={userId} />}
+        {userId === idNumber ? (
+          ""
+        ) : (
+          <FollowBox setAux={setAux} userId={userId} aux={aux} />
+        )}
       </Wrapper>
     );
   } else {
