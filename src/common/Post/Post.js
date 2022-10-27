@@ -8,7 +8,7 @@ import {
 import { FaPencilAlt, FaShare, FaTrash } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../../contexts/UserContext";
 import PostMetadata from "./PostMetadata";
 import PostDescription from "./PostDescription";
@@ -17,6 +17,7 @@ import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import PostShares from "./PostShares";
 import PostCommentsButton from "./PostCommentsButton";
 import PostComments from "./PostComments";
+import { getOriginalPostUserData } from "../../services/axiosService";
 
 export default function Post({ obj, isDisable, setIsDisable }) {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -25,8 +26,25 @@ export default function Post({ obj, isDisable, setIsDisable }) {
   const [isEditing, setIsEditing] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    username: obj.username,
+    userPhoto: obj.userPhoto,
+  });
 
-  function redirect() {
+  useEffect(() => {
+    if (obj.originalId) {
+      getOriginalPostUserData(obj.id)
+        .then(res => {
+          setUserData({
+            username: res.data.username,
+            userPhoto: res.data.picture,
+          })
+        })
+        .catch(error => console.log(error));
+    }
+  }, []);
+
+  function redirect () {
     setUserInfo({
       username: obj.username,
       picture: obj.userPhoto,
@@ -68,11 +86,11 @@ export default function Post({ obj, isDisable, setIsDisable }) {
       <PostWrapper>
         <LeftHandleBar>
           <img
-            src={obj.userPhoto}
-            alt={`User ${obj.username}`}
+            src={userData.userPhoto}
+            alt={`User ${userData.username}`}
             onClick={() => redirect()}
           />
-          <PostLikes obj={obj} />
+          <PostLikes obj={obj} setIsDisable={setIsDisable} />
           <PostCommentsButton
             obj={obj}
             isCommentsOpen={isCommentsOpen}
@@ -86,7 +104,7 @@ export default function Post({ obj, isDisable, setIsDisable }) {
         </LeftHandleBar>
         <RightHandleBar>
           <div className="header">
-            <p onClick={redirect}>{obj.username}</p>
+            <p onClick={redirect}>{userData.username}</p>
             {userInfo.userId === obj.userId ? (
               <>
                 {obj.originalId ? (
