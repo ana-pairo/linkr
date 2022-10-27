@@ -228,6 +228,7 @@ const SearchOpen = styled.div`
       line-height: 23px;
       font-family: "Lato", sans-serif;
       color: #c5c5c5;
+      margin-left: 10px;
     }
   }
 

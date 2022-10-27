@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { checkFollows, follow } from "../../services/axiosService";
 
-export default function FollowBox({ userId }) {
+export default function FollowBox({ userId, setAux, aux }) {
   const pageId = parseInt(useParams().id);
   const data = { follower: userId, followed: pageId };
   const [bottomText, setBottomText] = useState("");
@@ -25,7 +25,7 @@ export default function FollowBox({ userId }) {
         }
       })
       .catch((e) => console.log(e));
-  }, [isFollowed]);
+  }, [isFollowed, aux]);
 
   async function action() {
     setIsDisable(true);
@@ -33,6 +33,7 @@ export default function FollowBox({ userId }) {
       await follow({ ...data });
       setIsDisable(false);
       setIsFollowed(!isFollowed);
+      setAux("");
     } catch (error) {
       setIsDisable(false);
       swal("Oops", "An error occured, please try again", "error");

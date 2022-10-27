@@ -156,5 +156,5 @@ export {
   follow,
   getTotalComments,
   getQuant,
-  getOriginalPostUserData
+  getOriginalPostUserData,
 };
