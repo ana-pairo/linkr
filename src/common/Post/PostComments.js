@@ -40,8 +40,8 @@ export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
                 onClick={() => redirect(comment)}
               />
               <CommentDescription>
-                <h2>{comment.username}</h2>
-                <h1>{comment.description}</h1>
+                <h3>{comment.username}</h3>
+                <h4>{comment.description}</h4>
               </CommentDescription>
             </Comment>
           ))
