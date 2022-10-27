@@ -55,7 +55,13 @@ export default function UserPage({ page }) {
 
   return (
     <>
-      <Title showMenu={showMenu} idNumber={idNumber} userId={userId}>
+      <Title
+        showMenu={showMenu}
+        idNumber={idNumber}
+        userId={userId}
+        setAux={setAux}
+        aux={aux}
+      >
         <img alt={userInfo.username} src={userInfo.picture} />
         <div> {userInfo.username}</div>
       </Title>
@@ -65,14 +71,14 @@ export default function UserPage({ page }) {
           {posts.length === 0 && !noPosts ? (
             <h1>Loading...</h1>
           ) : (
-            posts.map((e, i) => 
-              <Post 
+            posts.map((e, i) => (
+              <Post
                 key={i}
                 obj={e}
                 isDisable={isDisable}
                 setIsDisable={setIsDisable}
               />
-            )
+            ))
           )}
         </LeftWrapper>
         <RightWrapper>

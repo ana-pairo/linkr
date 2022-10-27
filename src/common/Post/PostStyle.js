@@ -63,19 +63,19 @@ const CommentDescription = styled.div`
   flex-direction: column;
   font-family: "Lato", sans-serif;
 
-  h1 {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #acacac;
-  }
-
-  h2 {
+  h3 {
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
     color: #f3f3f3;
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #acacac;
   }
 `;
 
