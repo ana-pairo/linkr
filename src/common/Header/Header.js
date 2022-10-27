@@ -104,7 +104,7 @@ export default function Header() {
                   >
                     {e.username}
                   </p>
-                  {e.followerId === loggedUser ? <h1> • following</h1> : ""}
+                  {e.follower ? <h1> • following</h1> : ""}
                 </div>
               );
             })}
