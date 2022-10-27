@@ -25,16 +25,22 @@ export default function Header() {
   const { setUserInfo } = useContext(UserContext);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [loggedUser, setLoggedUser] = useState();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("Linkr"));
     setUserPicture(userData.picture);
+    setLoggedUser(userData.userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function listUsers(search) {
     const promise = listUsersSearch(search);
-    promise.then((r) => setUsers(r.data)).catch((e) => setUsers([]));
+    promise
+      .then((r) => {
+        setUsers(r.data);
+      })
+      .catch((e) => setUsers([]));
   }
 
   function redirect(e) {
@@ -98,7 +104,7 @@ export default function Header() {
                   >
                     {e.username}
                   </p>
-                  <h1> • seguindo</h1>
+                  {e.followerId === loggedUser ? <h1> • following</h1> : ""}
                 </div>
               );
             })}
@@ -106,17 +112,23 @@ export default function Header() {
         </SearchBox>
       </ClickAwayListener>
       <ClickAwayListener onClickAway={() => setShowMenu(false)}>
-        <Imagem
-          showMenu={showMenu}
-          onClick={() => {
-            setShowMenu(!showMenu);
-          }}
-        >
-          <div>
+        <Imagem showMenu={showMenu}>
+          <div
+            onClick={() => {
+              setShowMenu(!showMenu);
+            }}
+          >
             <MdOutlineExpandMore color="white" size="40px" />
           </div>
 
-          <img alt="User profile" src={userPicture} />
+          <img
+            alt="User profile"
+            src={userPicture}
+            onClick={() => {
+              setShowMenu(false);
+              navigate("/user/" + loggedUser);
+            }}
+          />
         </Imagem>
       </ClickAwayListener>
 
