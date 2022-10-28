@@ -82,6 +82,18 @@ const LeftWrapper = styled.div`
     cursor: pointer;
   }
 
+  & > .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: 0.05em;
+    color: #6D6D6D;
+  }
+
 `;
 
 const RightWrapper = styled.div`
