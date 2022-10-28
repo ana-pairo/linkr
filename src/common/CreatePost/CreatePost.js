@@ -44,7 +44,7 @@ export default function CreatePost({ listTimeLine }) {
     promise
       .then((r) => {
         setFormInf({ link: "", description: "" });
-        listTimeLine();
+        listTimeLine(1);
         setDisabled(false);
       })
       .catch(() => {
