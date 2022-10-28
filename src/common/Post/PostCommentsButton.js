@@ -4,7 +4,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import styled from "styled-components";
 import { getTotalComments } from "../../services/axiosService";
 
-function PostComentsButton({ obj, setIsCommentsOpen, isCommentsOpen }) {
+function PostComentsButton({ obj, setIsCommentsOpen, isCommentsOpen, renderComments }) {
   //   const [isclicked, setIsclicked] = useState(false);
   // const { userInfo } = useContext(UserContext);
   //   const [postComents, setPostComents] = useState([]);
@@ -21,7 +21,7 @@ function PostComentsButton({ obj, setIsCommentsOpen, isCommentsOpen }) {
         setTotalComments(res.data.length);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [renderComments]);
 
   return (
     <Wrapper>

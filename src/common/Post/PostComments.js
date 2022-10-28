@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoPaperPlaneOutline } from "react-icons/io5";
-import { getTotalComments } from "../../services/axiosService";
+import { getTotalComments, commentPost } from "../../services/axiosService";
 import {
   CommentsWrapper,
   Comment,
@@ -9,10 +9,12 @@ import {
   CommentDescription,
 } from "./PostStyle";
 
-export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
+export default function PostComments({ isCommentsOpen, obj, setUserInfo, renderComments, setRenderCommensts }) {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
+  const [description, setDescription] = useState("");
   const userInfo = JSON.parse(localStorage.getItem("Linkr"));
+  //atualizar o número de comentários quando faz um comentario novo
   function redirect(obj) {
     setUserInfo({
       username: obj.username,
@@ -21,13 +23,27 @@ export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
     navigate("/user/" + obj.userId);
   }
 
+  function postComment() {
+    if (description !== ""){
+        const body = {
+            description,
+            userId: userInfo.userId  
+        };
+        commentPost(obj.id, body)
+          .then((res)=> {
+            setRenderCommensts(!renderComments);
+          })
+          .catch((error) => console.log(error));
+    };
+  };
+
   useEffect(() => {
     getTotalComments(obj.id)
       .then((res) => {
         setComments(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [renderComments, obj.id]);
 
   return (
     <CommentsWrapper isCommentsOpen={isCommentsOpen}>
@@ -52,9 +68,9 @@ export default function PostComments({ isCommentsOpen, obj, setUserInfo }) {
           alt={`User ${userInfo.username}`}
           onClick={() => redirect(userInfo)}
         />
-        <input placeholder="write a comment..." />
+        <input onChange={(e)=> setDescription(e.target.value)} placeholder="write a comment..." />
         <div>
-          <IoPaperPlaneOutline size={"20px"} color={"white"} />
+          <IoPaperPlaneOutline size={"20px"} color={"white"} onClick={postComment}/>
         </div>
       </InputBox>
     </CommentsWrapper>
