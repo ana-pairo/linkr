@@ -22,9 +22,6 @@ export default function Timeline({ page }) {
   const [count, setCount] = useState(1);
   let oneTime = false;
   const container = useRef();
-  
-  console.log("quant " + quant);
-  console.log("posts" + posts.length);
 
   useEffect(() => {
     listTimeLine(count);
