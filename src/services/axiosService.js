@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
-// const BASE_URL = "http://localhost:4000/";
+//const BASE_URL = "https://linkr-agij-api.herokuapp.com/";
+const BASE_URL = "http://localhost:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
@@ -135,6 +135,12 @@ function getOriginalPostUserData(postId) {
   return promise;
 }
 
+function commentPost(postId, body){
+  const header = createHeader();
+  const promise = axios.post(BASE_URL + `comments/${postId}`, body, header);
+  return promise;
+}
+
 export {
   signUp,
   signIn,
@@ -157,4 +163,5 @@ export {
   getTotalComments,
   getQuant,
   getOriginalPostUserData,
+  commentPost
 };
