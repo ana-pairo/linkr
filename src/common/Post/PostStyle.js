@@ -63,6 +63,10 @@ const CommentDescription = styled.div`
   flex-direction: column;
   font-family: "Lato", sans-serif;
 
+  .userCommentBox {
+    display: flex;
+  }
+
   h3 {
     font-style: normal;
     font-weight: 700;
@@ -76,6 +80,14 @@ const CommentDescription = styled.div`
     font-size: 14px;
     line-height: 17px;
     color: #acacac;
+  }
+
+  h5 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #565656;
+    margin-left: 4px;
   }
 `;
 

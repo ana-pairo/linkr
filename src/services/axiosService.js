@@ -141,6 +141,12 @@ function commentPost(postId, body){
   return promise;
 }
 
+function getFollowersByUser(userId){
+  const header = createHeader();
+  const promise = axios.get(BASE_URL + `followers/${userId}`, header);
+  return promise;
+};
+
 export {
   signUp,
   signIn,
@@ -163,5 +169,6 @@ export {
   getTotalComments,
   getQuant,
   getOriginalPostUserData,
-  commentPost
+  commentPost,
+  getFollowersByUser
 };
