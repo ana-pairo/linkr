@@ -22,7 +22,7 @@ You can check project's simplified documentation [here](https://gamy-marmoset-92
 
 In order to clone the project and run it in your machine, you must run the following commands (with git and npm installed in your machine):
 
-### `git clone https://github.com/gabao55/linkr-front.git`
+### `git clone https://github.com/ana-pairo/projeto17-linkr-front.git`
 
 Then you must go to the project's directory and run:
 
