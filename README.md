@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Features
+
+1. Sign-up and sign-in pages with authentication
+2. Header with Logout button and profiles search bar
+3. Publishing posts
+4. Timeline with posts list
+5. Box with 10 most popular hashtags
+6. Users' timeline
+7. Hashtags' timeline
+8. Post edition and deletion
+9. Interactions with post (likes, comments and re-posts)
+
 ## Documentation
 
 You can check project's simplified documentation [here](https://gamy-marmoset-929.notion.site/Linkr-d900946be89545b1a8d2d231adf40ba6).
