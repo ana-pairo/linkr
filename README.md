@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+<h1 align="center">Linkr</h1>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Features
+
+1. Sign-up and sign-in pages with authentication
+2. Header with Logout button and profiles search bar
+3. Publishing posts
+4. Timeline with posts list
+5. Box with 10 most popular hashtags
+6. Users' timeline
+7. Hashtags' timeline
+8. Post edition and deletion
+9. Interactions with post (likes, comments and re-posts)
+
+## Documentation
+
+You can check project's simplified documentation [here](https://gamy-marmoset-929.notion.site/Linkr-d900946be89545b1a8d2d231adf40ba6).
+
+## Cloning project
+
+In order to clone the project and run it in your machine, you must run the following commands (with git and npm installed in your machine):
+
+### `git clone https://github.com/gabao55/linkr-front.git`
+
+Then you must go to the project's directory and run:
+
+### `npm i`
 
 ## Available Scripts
 
@@ -38,33 +64,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
