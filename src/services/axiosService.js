@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://linkr-backend-server.herokuapp.com/";
+const BASE_URL = "http://3.239.165.111:4000/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
