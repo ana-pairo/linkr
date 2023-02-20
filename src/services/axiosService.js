@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://3.239.165.111:4000/";
+const BASE_URL = "https://3.239.165.111/";
 
 function createHeader() {
   const auth = JSON.parse(localStorage.getItem("Linkr"));
