@@ -1,6 +1,6 @@
 <h1 align="center">Linkr</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and allow users to share links or articles through posts.
 
 ## Features
 
@@ -16,17 +16,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Documentation
 
-You can check project's simplified documentation [here](https://gamy-marmoset-929.notion.site/Linkr-d900946be89545b1a8d2d231adf40ba6).
+You can check project's simplified documentation [here](https://valley-beast-e3f.notion.site/Linkr-76f4767131244888b65b4f29e9f73e6f).
 
 ## Cloning project
 
-In order to clone the project and run it in your machine, you must run the following commands (with git and npm installed in your machine):
+In order to clone the project:
 
-### `git clone https://github.com/ana-pairo/projeto17-linkr-front.git`
-
-Then you must go to the project's directory and run:
-
-### `npm i`
+1. Install Git and npm on your machine if you haven't already.
+2. Open your terminal and navigate to the directory where you want to store the project.
+3. Run the following command: `git clone https://github.com/ana-pairo/linkr.git`
+4. Once the project has finished cloning, navigate to the `linkr` directory.
+5. Run `npm install` to install the project dependencies.
+6. Run `npm start` to start the development server.
 
 ## Available Scripts
 
